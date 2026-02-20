@@ -1,0 +1,11 @@
+*.pt
+*.pth
+*.ckpt
+
+# Logs
+logs/
+*.log
+tensorboard/
+runs/
+
+/data/
