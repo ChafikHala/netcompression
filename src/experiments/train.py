@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 import torch
-from torch.optim import SGD
+from torch.optim import SGD, Adam, AdamW
 from torch.optim.lr_scheduler import MultiStepLR
 
 from src.utils.config import load_config
@@ -22,13 +22,46 @@ def _build_optimizer(cfg, model: torch.nn.Module) -> torch.optim.Optimizer:
     opt = cfg.optimizer
     opt_type = opt.type.lower()
 
+    params = model.parameters()
+    lr = float(opt.lr)
+
     if opt_type == "sgd":
+        momentum = float(getattr(opt, "momentum", 0.0))
+        weight_decay = float(getattr(opt, "weight_decay", 0.0))
+        nesterov = bool(getattr(opt, "nesterov", False))
+
         return SGD(
-            model.parameters(),
-            lr=float(opt.lr),
-            momentum=float(opt.momentum),
-            weight_decay=float(opt.weight_decay),
-            nesterov=bool(opt.nesterov),
+            params,
+            lr=lr,
+            momentum=momentum,
+            weight_decay=weight_decay,
+            nesterov=nesterov,
+        )
+
+    if opt_type == "adam":
+        betas = tuple(getattr(opt, "betas", (0.9, 0.999)))
+        eps = float(getattr(opt, "eps", 1e-8))
+        weight_decay = float(getattr(opt, "weight_decay", 0.0))
+
+        return Adam(
+            params,
+            lr=lr,
+            betas=betas,
+            eps=eps,
+            weight_decay=weight_decay,
+        )
+
+    if opt_type == "adamw":
+        betas = tuple(getattr(opt, "betas", (0.9, 0.999)))
+        eps = float(getattr(opt, "eps", 1e-8))
+        weight_decay = float(getattr(opt, "weight_decay", 1e-2))  # important default
+
+        return AdamW(
+            params,
+            lr=lr,
+            betas=betas,
+            eps=eps,
+            weight_decay=weight_decay,
         )
 
     raise ValueError(f"Unsupported optimizer: {cfg.optimizer.type}")
