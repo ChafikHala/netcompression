@@ -1,0 +1,58 @@
+experiment:
+  name: "fcn_mnist_baseline"
+  output_dir: "outputs"
+  seed: 42
+  run_id: "auto"
+  device: "auto"
+
+
+dataset:
+  name: "mnist"
+  root: "./data"
+  num_classes: 10
+
+  augmentation:
+    random_crop: 0
+    horizontal_flip: false
+    normalize: true
+
+dataloader:
+  batch_size: 256
+  num_workers: 4
+  pin_memory: true
+
+model:
+  name: "fcn"
+  input_shape: [1, 28, 28]   # C,H,W
+  hidden_dims: [512, 256]
+  dropout: 0.0
+
+optimizer:
+  type: "sgd"
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 0.0
+  nesterov: false
+
+scheduler:
+  type: "multistep"
+  milestones: [10, 15]
+  gamma: 0.1
+
+training:
+  epochs: 20
+  criterion: "cross_entropy"
+  label_smoothing: 0.0
+  mixed_precision: true
+
+checkpoint:
+  save_best_only: true
+  save_last: true
+  save_every_epochs: 5
+  monitor: "val_accuracy"
+  mode: "max"
+
+logging:
+  print_every_steps: 100      
+  save_epoch_metrics: true    
+  save_batch_logs: false 
