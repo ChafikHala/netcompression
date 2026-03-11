@@ -54,8 +54,8 @@ def _build_model() -> nn.Module:
         hidden_dims=[400],
         num_classes=10,
         dropout=0.0,
+        bias=False,
     )
-
 
 def _save_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -91,6 +91,8 @@ def _prepare_cfg(cfg, alpha: float):
 
     _set_nested_attr(cfg, ["training", "criterion"], "cross_entropy")
     _set_nested_attr(cfg, ["training", "label_smoothing"], 0.0)
+
+    _set_nested_attr(cfg, ["model", "bias"], False)
 
     return cfg
 

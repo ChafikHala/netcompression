@@ -34,7 +34,8 @@
     "hidden_dims": [
       400
     ],
-    "dropout": 0.0
+    "dropout": 0.0,
+    "bias": false
   },
   "optimizer": {
     "type": "adamw",

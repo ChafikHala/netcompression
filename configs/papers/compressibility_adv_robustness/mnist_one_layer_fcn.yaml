@@ -28,6 +28,7 @@ model:
   input_shape: [1, 28, 28]
   hidden_dims: [400]
   dropout: 0.0
+  bias: false
 
 optimizer:
   type: "adamw"

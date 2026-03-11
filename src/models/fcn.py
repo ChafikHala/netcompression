@@ -14,6 +14,7 @@ class FCN(nn.Module):
         hidden_dims: Iterable[int],
         num_classes: int,
         dropout: float = 0.0,
+        bias: bool = True,
     ) -> None:
         super().__init__()
 
@@ -24,13 +25,13 @@ class FCN(nn.Module):
         prev = in_dim
         for hd in hidden_dims:
             hd = int(hd)
-            layers.append(nn.Linear(prev, hd))
+            layers.append(nn.Linear(prev, hd, bias=bias))
             layers.append(nn.ReLU(inplace=True))
             if dropout and float(dropout) > 0:
                 layers.append(nn.Dropout(p=float(dropout)))
             prev = hd
 
-        layers.append(nn.Linear(prev, int(num_classes)))
+        layers.append(nn.Linear(prev, int(num_classes), bias=bias))
         self.net = nn.Sequential(*layers)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

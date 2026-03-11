@@ -26,6 +26,7 @@ def build_model(cfg, num_classes: int) -> nn.Module:
             hidden_dims=cfg.model.hidden_dims,
             num_classes=num_classes,
             dropout=float(cfg.model.dropout),
+            bias=bool(getattr(cfg.model, "bias", True)),
         )
 
     raise ValueError(f"Unsupported model: {cfg.model.name}")

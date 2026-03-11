@@ -25,6 +25,7 @@ def build_model() -> FCN:
         hidden_dims=[400],
         num_classes=10,
         dropout=0.0,
+        bias=False,
     )
 
 
