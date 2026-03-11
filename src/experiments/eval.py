@@ -12,6 +12,7 @@ import os
 import statistics
 from collections import defaultdict
 from pathlib import Path
+from typing import Union, Optional
 
 import matplotlib
 matplotlib.use("Agg")
@@ -78,7 +79,7 @@ def count_params_from_state_dict(state_dict: dict):
 
 @torch.no_grad()
 def evaluate_checkpoint(
-    ckpt_path: str | Path,
+    ckpt_path: Union[str, Path],
     base_cfg,
     test_loader,
     num_classes: int,
@@ -135,15 +136,15 @@ def infer_display_name(exp_name: str) -> str:
     return raw
 
 
-def load_json(path: str | Path):
+def load_json(path: Union[str, Path]):
     with open(path, "r") as f:
         return json.load(f)
 
 
 def discover_experiments(
-    base_dir: str | Path,
-    include: list[str] | None = None,
-    exclude: list[str] | None = None,
+    base_dir: Union[str, Path],
+    include: Optional[list[str]] = None,
+    exclude: Optional[list[str]] = None,
 ):
     """
     Discover experiments automatically from folders like:
@@ -225,7 +226,7 @@ def load_and_average_metrics_for_runs(run_dirs: list[Path]) -> list[dict]:
     return averaged
 
 
-def plot_metrics(averaged_metrics: dict, output_dir: str | Path):
+def plot_metrics(averaged_metrics: dict, output_dir: Union[str, Path]):
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -269,7 +270,7 @@ def plot_metrics(averaged_metrics: dict, output_dir: str | Path):
         print(f"Saved plot: {plot_path}")
 
 
-def plot_accuracy_vs_nnz(summary: dict, output_dir: str | Path):
+def plot_accuracy_vs_nnz(summary: dict, output_dir: Union[str, Path]):
     import numpy as np
 
     output_dir = Path(output_dir)

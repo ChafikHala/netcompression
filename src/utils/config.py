@@ -1,5 +1,6 @@
 import yaml
 from pathlib import Path
+from typing import Union
 
 
 class Config:
@@ -24,7 +25,7 @@ class Config:
         return result
 
 
-def load_config(path: str | Path) -> Config:
+def load_config(path: Union[str, Path]) -> Config:
     """
     Load YAML config file and return a Config object.
     """

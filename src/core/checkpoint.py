@@ -30,13 +30,16 @@ def _atomic_save(obj: Any, path: Path) -> None:
 
 
 def save_checkpoint(
-    path: str | Path,
+    path: Union[str, Path],
     payload: CheckpointPayload,
 ) -> None:
     _atomic_save(payload.__dict__, Path(path))
 
 
-def load_checkpoint(path: str | Path, map_location: str | torch.device = "cpu") -> Dict[str, Any]:
+def load_checkpoint(
+    path: Union[str, Path],
+    map_location: Union[str, torch.device] = "cpu",
+) -> Dict[str, Any]:
     return torch.load(Path(path), map_location=map_location)
 
 

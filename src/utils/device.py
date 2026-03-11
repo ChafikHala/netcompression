@@ -1,7 +1,8 @@
 import torch
+from typing import Optional
 
 
-def get_device(device_str: str | None = "auto") -> torch.device:
+def get_device(device_str: Optional[str] = "auto") -> torch.device:
     """
     Resolve device automatically.
 
