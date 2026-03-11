@@ -16,6 +16,9 @@ dataset:
     horizontal_flip: false
     normalize: true
 
+  noise:
+    label_noise_fraction: 0.0
+
 dataloader:
   batch_size: 256
   num_workers: 4
@@ -48,7 +51,7 @@ training:
 checkpoint:
   save_best_only: true
   save_last: true
-  save_every_epochs: 5
+  save_every_epochs: 10
   monitor: "val_accuracy"
   mode: "max"
 
@@ -56,3 +59,25 @@ logging:
   print_every_steps: 100      
   save_epoch_metrics: true    
   save_batch_logs: false 
+
+pruning:
+  enabled: false
+  method: "gradual_cubic_layerwise"  # gradual_cubic_layerwise | global_magnitude
+
+  # Common target sparsity
+  initial_sparsity: 0.0
+  final_sparsity: 0.5
+
+  # Step-based gradual cubic schedule (used by gradual_cubic_layerwise)
+  begin_step: 0
+  update_frequency_steps: 100
+  num_updates: 100
+
+  # Epoch-based schedule (used by global_magnitude)
+  start_epoch: 0
+  end_epoch: null
+  frequency: 1
+
+  # Parameter filtering
+  exclude_bias: true
+  exclude_norm: true

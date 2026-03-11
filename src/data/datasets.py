@@ -7,6 +7,8 @@ import torch
 from torch.utils.data import random_split
 from torchvision import datasets, transforms
 
+from src.data.noise import apply_label_noise
+
 
 _CIFAR10_MEAN = (0.4914, 0.4822, 0.4465)
 _CIFAR10_STD = (0.2023, 0.1994, 0.2010)
@@ -76,7 +78,10 @@ def build_datasets(cfg) -> DatasetBundle:
     name = cfg.dataset.name.lower()
     root = cfg.dataset.root
 
-    # default split params (works even if you don't add them to YAML yet)
+    num_classes = int(getattr(cfg.dataset, "num_classes", 0))
+    if num_classes <= 0:
+        raise ValueError("cfg.dataset.num_classes must be a positive integer")
+
     val_fraction = float(getattr(cfg.dataset, "val_fraction", 0.1))
     seed = int(cfg.experiment.seed)
 
@@ -87,7 +92,13 @@ def build_datasets(cfg) -> DatasetBundle:
         test_ds = datasets.CIFAR10(root=root, train=False, download=True, transform=test_tfm)
 
         train_ds, val_ds = _split_train_val(full_train, val_fraction=val_fraction, seed=seed)
-        return DatasetBundle(train=train_ds, val=val_ds, test=test_ds, num_classes=10)
+        train_ds = apply_label_noise(
+            train_ds,
+            num_classes=num_classes,
+            noise_fraction=_resolve_label_noise_fraction(cfg),
+            seed=seed,
+        )
+        return DatasetBundle(train=train_ds, val=val_ds, test=test_ds, num_classes=num_classes)
 
     if name == "mnist":
         train_tfm, test_tfm = _build_mnist_transforms(cfg)
@@ -96,6 +107,26 @@ def build_datasets(cfg) -> DatasetBundle:
         test_ds = datasets.MNIST(root=root, train=False, download=True, transform=test_tfm)
 
         train_ds, val_ds = _split_train_val(full_train, val_fraction=val_fraction, seed=seed)
-        return DatasetBundle(train=train_ds, val=val_ds, test=test_ds, num_classes=10)
+        train_ds = apply_label_noise(
+            train_ds,
+            num_classes=num_classes,
+            noise_fraction=_resolve_label_noise_fraction(cfg),
+            seed=seed,
+        )
+        return DatasetBundle(train=train_ds, val=val_ds, test=test_ds, num_classes=num_classes)
 
     raise ValueError(f"Unsupported dataset: {cfg.dataset.name}")
+
+
+def _resolve_label_noise_fraction(cfg) -> float:
+    noise_cfg = getattr(cfg.dataset, "noise", None)
+    if noise_cfg is None:
+        return 0.0
+
+    if hasattr(noise_cfg, "label_noise_fraction"):
+        return float(noise_cfg.label_noise_fraction)
+
+    if hasattr(noise_cfg, "fraction"):
+        return float(noise_cfg.fraction)
+
+    return 0.0

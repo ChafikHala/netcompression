@@ -13,7 +13,7 @@ class RunPaths:
 
 
 def make_run_paths(cfg) -> RunPaths:
-    output_root = Path(getattr(cfg.experiment, "output_root", "outputs"))
+    output_root = Path(getattr(cfg.experiment, "output_dir", "outputs"))
     exp_name = cfg.experiment.name
 
     run_id = getattr(cfg.experiment, "run_id", "auto")

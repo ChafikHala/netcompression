@@ -13,6 +13,17 @@ from src.core.checkpoint import save_checkpoint, CheckpointPayload, save_best_if
 from src.core.evaluator import evaluate
 from src.utils.paths import make_run_paths
 
+from src.pruning import (
+    build_pruning_controller,
+    should_prune_this_step,
+    target_sparsity_for_step,
+    should_prune_this_epoch,
+    target_sparsity_for_epoch,
+    prune_to_target_sparsity,
+    enforce_pruning_masks,
+    current_global_sparsity,
+)
+
 
 @dataclass(frozen=True)
 class TrainResult:
@@ -62,6 +73,23 @@ def train(
     print(f"[Device] {device} | AMP={use_amp}")
     print(f"[Checkpoint] monitor={monitor} mode={mode} save_every_epochs={save_every}")
 
+    pruning = build_pruning_controller(cfg, model)
+    if pruning.enabled:
+        if pruning.method == "gradual_cubic_layerwise":
+            print(
+                f"[Pruning] method={pruning.method} si={pruning.initial_sparsity:.3f} "
+                f"sf={pruning.final_sparsity:.3f} begin_step={pruning.begin_step} "
+                f"freq_steps={pruning.update_frequency_steps} updates={pruning.num_updates} "
+                f"end_step={pruning.end_step} prunable={pruning.total_prunable}"
+            )
+        else:
+            print(
+                f"[Pruning] method={pruning.method} si={pruning.initial_sparsity:.3f} "
+                f"sf={pruning.final_sparsity:.3f} start_epoch={pruning.start_epoch+1} "
+                f"end_epoch={pruning.end_epoch+1} freq_epochs={pruning.frequency_epochs} "
+                f"prunable={pruning.total_prunable}"
+            )
+
     for epoch in range(int(cfg.training.epochs)):
         t0 = time.time()
         model.train()
@@ -84,6 +112,10 @@ def train(
             scaler.step(optimizer)
             scaler.update()
 
+            if pruning.enabled:
+                enforce_pruning_masks(pruning, model)
+
+
             bs = x.size(0)
             running_loss += float(loss.item()) * bs
             preds = logits.argmax(dim=1)
@@ -91,6 +123,16 @@ def train(
             running_total += int(bs)
 
             global_step += 1
+
+            if should_prune_this_step(pruning, global_step):
+                target = target_sparsity_for_step(pruning, global_step)
+                applied_step_sparsity = prune_to_target_sparsity(pruning, model, target)
+                if print_every > 0 and (step % print_every == 0):
+                    print(
+                        f"[Pruning][Step {global_step}] target={target:.4f} "
+                        f"applied={applied_step_sparsity:.4f}"
+                    )
+
 
             if print_every > 0 and (step % print_every == 0):
                 train_loss = running_loss / max(running_total, 1)
@@ -118,6 +160,17 @@ def train(
 
         train_loss = running_loss / max(running_total, 1)
         train_acc = running_correct / max(running_total, 1)
+
+        applied_epoch_sparsity = None
+        if should_prune_this_epoch(pruning, epoch):
+            target = target_sparsity_for_epoch(pruning, epoch)
+            applied_epoch_sparsity = prune_to_target_sparsity(pruning, model, target)
+            print(
+                f"[Pruning][Epoch {epoch+1:03d}] target={target:.4f} "
+                f"applied={applied_epoch_sparsity:.4f}"
+            )
+
+        current_sparsity = current_global_sparsity(pruning) if pruning.enabled else None
 
         # Validation
         val_res = evaluate(model, val_loader, criterion, device)
@@ -173,6 +226,7 @@ def train(
             f"val_loss={val_res.loss:.4f} val_acc={val_res.accuracy:.4f} | "
             f"best={best_metric:.4f} (epoch {best_epoch+1 if best_epoch>=0 else -1}) | "
             f"lr={lr:.5g} | {epoch_time:.1f}s"
+            + (f" | sparsity={current_sparsity:.4f}" if current_sparsity is not None else "")
         )
 
         if save_epoch_metrics:
@@ -186,6 +240,8 @@ def train(
                 "best_epoch": best_epoch + 1 if best_epoch >= 0 else None,
                 "lr": lr,
                 "epoch_time_sec": epoch_time,
+                 "sparsity": current_sparsity,
+                "pruning_applied_epoch": applied_epoch_sparsity,
             }
             with open(metrics_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(record) + "\n")

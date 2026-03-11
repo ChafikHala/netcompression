@@ -1,58 +1,46 @@
 experiment:
-  name: "resnet18_cifar10_baseline"
+  name: "mobilenet_cifar10_sparse_80"
   output_dir: "outputs"
   seed: 42
   run_id: "auto"
   device: "auto"
- 
-
 
 dataset:
   name: "cifar10"
   root: "./data"
   num_classes: 10
-
   augmentation:
     random_crop: 4
     horizontal_flip: true
     normalize: true
-
-  noise:
-    label_noise_fraction: 0.0
-
 
 dataloader:
   batch_size: 128
   num_workers: 4
   pin_memory: true
 
-
 model:
-  name: "resnet18"  # resnet18 | mobilenet_v2
+  name: "mobilenet_v2"
   pretrained: false
-  width_mult: 1.0    # used when model.name == "mobilenet_v2"
-
+  width_mult: 1.0
 
 optimizer:
   type: "sgd"
-  lr: 0.1
+  lr: 0.05
   momentum: 0.9
   weight_decay: 5e-4
   nesterov: true
-
 
 scheduler:
   type: "multistep"
   milestones: [100, 150]
   gamma: 0.1
 
-
 training:
-  epochs: 200
+  epochs: 40
   criterion: "cross_entropy"
   label_smoothing: 0.0
   mixed_precision: true
-
 
 checkpoint:
   save_best_only: true
@@ -62,9 +50,9 @@ checkpoint:
   mode: "max"
 
 logging:
-  print_every_steps: 100      
-  save_epoch_metrics: true    
-  save_batch_logs: false 
+  print_every_steps: 100
+  save_epoch_metrics: true
+  save_batch_logs: false
 
 pruning:
   enabled: true
@@ -72,7 +60,7 @@ pruning:
 
   # Common target sparsity
   initial_sparsity: 0.0
-  final_sparsity: 0.5
+  final_sparsity: 0.8
 
   # Step-based gradual cubic schedule (used by gradual_cubic_layerwise)
   begin_step: 0
@@ -80,7 +68,7 @@ pruning:
   num_updates: 100
 
   # Epoch-based schedule (used by global_magnitude)
-  start_epoch: 10
+  start_epoch: 4
   end_epoch: null
   frequency: 5
 
