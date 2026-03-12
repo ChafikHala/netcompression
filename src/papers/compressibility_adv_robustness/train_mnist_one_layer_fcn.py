@@ -17,7 +17,6 @@ from src.data.dataloaders import build_dataloaders
 from src.data.datasets import build_datasets
 from src.models.fcn import FCN
 from src.papers.compressibility_adv_robustness.regularization import (
-    capture_frobenius_norm,
     collect_matrix_stats,
     frobenius_normalize_,
     get_single_hidden_layer_weight,
@@ -48,11 +47,11 @@ def _set_nested_attr(obj: Any, path: list[str], value: Any) -> None:
     setattr(cur, path[-1], value)
 
 
-def _build_model() -> nn.Module:
+def _build_model(num_classes: int = 2) -> nn.Module:
     return FCN(
         input_shape=[1, 28, 28],
         hidden_dims=[400],
-        num_classes=10,
+        num_classes=num_classes,
         dropout=0.0,
         bias=False,
     )
@@ -77,7 +76,8 @@ def _prepare_cfg(cfg, alpha: float):
 
     _set_nested_attr(cfg, ["experiment", "name"], f"model_one_layer_FC_alpha_{_alpha_to_name(alpha)}")
     _set_nested_attr(cfg, ["dataset", "name"], "mnist")
-    _set_nested_attr(cfg, ["dataset", "num_classes"], 10)
+    _set_nested_attr(cfg, ["dataset", "num_classes"], 2)
+    _set_nested_attr(cfg, ["dataset", "binary"], True)
     _set_nested_attr(cfg, ["dataset", "val_fraction"], 0.05)
 
     _set_nested_attr(cfg, ["model", "name"], "fcn")
@@ -145,7 +145,11 @@ def _save_best_checkpoint(
     save_checkpoint(path, payload)
 
 
-def train_one_alpha(cfg, alpha: float) -> dict:
+def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
+    cfg = load_config_dict_like(cfg)
+    if seed is not None:
+        _set_nested_attr(cfg, ["experiment", "seed"], int(seed))
+
     seed_everything(int(cfg.experiment.seed))
     device = get_device(getattr(cfg.experiment, "device", "auto"))
     print("Using device:", device)
@@ -159,7 +163,7 @@ def train_one_alpha(cfg, alpha: float) -> dict:
     )
 
     # Model / optimizer / loss
-    model = _build_model().to(device)
+    model = _build_model(num_classes=bundle.num_classes).to(device)
     optimizer = AdamW(
         model.parameters(),
         lr=1e-3,
@@ -167,15 +171,21 @@ def train_one_alpha(cfg, alpha: float) -> dict:
     )
     criterion = nn.CrossEntropyLoss()
 
-    # Target matrix W and its reference Frobenius norm
-    weight = get_single_hidden_layer_weight(model)
-    target_fro_norm = capture_frobenius_norm(weight)
+
+    # Apply Frobenius normalization only when alpha > 0
+    use_frobenius_normalization = float(alpha) > 0.0
+    target_fro_norm = 1.0
+
+    if use_frobenius_normalization:
+        weight = get_single_hidden_layer_weight(model)
+        frobenius_normalize_(weight, target_fro_norm)
+
 
     # Output structure
     output_root = Path(getattr(cfg.experiment, "output_dir", "outputs"))
     exp_name = cfg.experiment.name
-    run_id = f"seed_{cfg.experiment.seed}"
-    run_dir = output_root / "compressibility_adv_robustness" / exp_name / run_id
+    run_name = f"{exp_name}_seed_{cfg.experiment.seed}"
+    run_dir = output_root / "compressibility_adv_robustness" / run_name
     ckpt_dir = run_dir / "checkpoints"
     logs_dir = run_dir / "logs"
     ckpt_dir.mkdir(parents=True, exist_ok=True)
@@ -220,7 +230,11 @@ def train_one_alpha(cfg, alpha: float) -> dict:
             ce_loss = criterion(logits, y)
 
             weight = get_single_hidden_layer_weight(model)
-            nuc_pen = nuclear_norm_penalty(weight)
+            if alpha:
+                nuc_pen = nuclear_norm_penalty(weight)
+            else:
+                nuc_pen = torch.tensor(0.)
+
             loss = ce_loss + float(alpha) * nuc_pen
 
             loss.backward()
@@ -228,7 +242,9 @@ def train_one_alpha(cfg, alpha: float) -> dict:
 
             # Enforce fixed Frobenius norm after each optimizer step
             weight = get_single_hidden_layer_weight(model)
-            frobenius_normalize_(weight, target_fro_norm)
+            
+            if alpha:
+                frobenius_normalize_(weight, target_fro_norm)
 
             bs = x.size(0)
             preds = logits.argmax(dim=1)
@@ -246,6 +262,7 @@ def train_one_alpha(cfg, alpha: float) -> dict:
 
         val_res = evaluate(model, val_loader, criterion, device)
         test_res = evaluate(model, test_loader, criterion, device)
+
 
         matrix_stats = collect_matrix_stats(get_single_hidden_layer_weight(model))
 
@@ -341,11 +358,12 @@ def train_one_alpha(cfg, alpha: float) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=str, required=True)
-    parser.add_argument("--alpha", type=float, required=True, choices=[0.0, 0.005, 0.01, 0.05])
+    parser.add_argument("--alpha", type=float, required=True)
+    parser.add_argument("--seed", type=int, required=False, default=None)
     args = parser.parse_args()
 
     cfg = load_config(args.config)
-    train_one_alpha(cfg, alpha=float(args.alpha))
+    train_one_alpha(cfg, alpha=float(args.alpha), seed=args.seed)
 
 
 if __name__ == "__main__":

@@ -25,6 +25,25 @@ class DatasetBundle:
     num_classes: int
 
 
+class BinaryLabelDataset(torch.utils.data.Dataset):
+    """
+    Wrap a dataset and map labels:
+      0,1,2,3,4 -> 0
+      5,6,7,8,9 -> 1
+    """
+
+    def __init__(self, base_dataset):
+        self.base_dataset = base_dataset
+
+    def __len__(self):
+        return len(self.base_dataset)
+
+    def __getitem__(self, idx):
+        x, y = self.base_dataset[idx]
+        y_bin = 0 if int(y) <= 4 else 1
+        return x, y_bin
+
+
 def _build_cifar10_transforms(cfg) -> Tuple[transforms.Compose, transforms.Compose]:
     aug = cfg.dataset.augmentation
 
@@ -105,6 +124,10 @@ def build_datasets(cfg) -> DatasetBundle:
 
         full_train = datasets.MNIST(root=root, train=True, download=True, transform=train_tfm)
         test_ds = datasets.MNIST(root=root, train=False, download=True, transform=test_tfm)
+
+        if bool(getattr(cfg.dataset, "binary", False)):
+            full_train = BinaryLabelDataset(full_train)
+            test_ds = BinaryLabelDataset(test_ds)
 
         train_ds, val_ds = _split_train_val(full_train, val_fraction=val_fraction, seed=seed)
         train_ds = apply_label_noise(

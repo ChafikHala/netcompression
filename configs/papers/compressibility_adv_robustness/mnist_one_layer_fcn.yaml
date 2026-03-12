@@ -7,7 +7,8 @@ experiment:
 dataset:
   name: "mnist"
   root: "./data"
-  num_classes: 10
+  num_classes: 2
+  binary: true
   val_fraction: 0.05
 
   augmentation:
