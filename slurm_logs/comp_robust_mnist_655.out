@@ -1,0 +1,89 @@
+Start time: Fri Mar 13 08:42:03 AM CET 2026
+Host: albatros.polytechnique.fr
+Fri Mar 13 08:42:03 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               Off |   00000000:01:00.0  On |                  Off |
+| 30%   37C    P8             28W /  230W |     370MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1431776      G   /usr/libexec/Xorg                       190MiB |
+|    0   N/A  N/A         1431963      G   /usr/bin/gnome-shell                     49MiB |
+|    0   N/A  N/A         1433706      G   ...local/avogadro2/bin/avogadro2         83MiB |
++-----------------------------------------------------------------------------------------+
+cuda available: True
+device count: 1
+device name: NVIDIA RTX A5000
+Alphas: [0.0001, 0.00017716005396691217, 0.000313856847215592, 0.0005560289599059919, 0.0009850612054411157, 0.0017451349631665944, 0.0030916820425413915, 0.005477225575051662, 0.00970345578465104, 0.017190647504743226, 0.030454960396664742, 0.05395402427433299, 0.09558497852172912, 0.16933839953335672, 0.3]
+Seeds: [0, 1, 2, 3, 4]
+
+================================================================================
+Training alpha=0.00010000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_alpha_0p0001
+[Alpha] 0.0001
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0001_seed_0
+[Target Frobenius norm] 11.500000
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.1598 | train_nuc=197.2572 | train_total=0.1795 | train_acc=0.9389 | val_loss=0.0893 | val_acc=0.9700 | fro=11.5000 | nuc=181.8954
+[Epoch 002] train_ce=0.0711 | train_nuc=170.6661 | train_total=0.0882 | train_acc=0.9758 | val_loss=0.0627 | val_acc=0.9783 | fro=11.5000 | nuc=160.1745
+[Epoch 003] train_ce=0.0531 | train_nuc=151.0732 | train_total=0.0682 | train_acc=0.9816 | val_loss=0.0545 | val_acc=0.9810 | fro=11.5000 | nuc=142.7712
+[Epoch 004] train_ce=0.0420 | train_nuc=135.1937 | train_total=0.0555 | train_acc=0.9857 | val_loss=0.0525 | val_acc=0.9813 | fro=11.5000 | nuc=127.9431
+[Epoch 005] train_ce=0.0358 | train_nuc=121.8975 | train_total=0.0480 | train_acc=0.9879 | val_loss=0.0617 | val_acc=0.9753 | fro=11.5000 | nuc=116.2394
+[Epoch 006] train_ce=0.0303 | train_nuc=111.9856 | train_total=0.0415 | train_acc=0.9899 | val_loss=0.0521 | val_acc=0.9810 | fro=11.5000 | nuc=108.1383
+[Epoch 007] train_ce=0.0293 | train_nuc=105.2311 | train_total=0.0398 | train_acc=0.9902 | val_loss=0.0442 | val_acc=0.9833 | fro=11.5000 | nuc=103.0087
+[Epoch 008] train_ce=0.0265 | train_nuc=101.0687 | train_total=0.0366 | train_acc=0.9911 | val_loss=0.0510 | val_acc=0.9823 | fro=11.5000 | nuc=99.3927
+[Epoch 009] train_ce=0.0250 | train_nuc=98.0894 | train_total=0.0348 | train_acc=0.9915 | val_loss=0.0473 | val_acc=0.9830 | fro=11.5000 | nuc=97.4269
+[Epoch 010] train_ce=0.0243 | train_nuc=96.6881 | train_total=0.0339 | train_acc=0.9919 | val_loss=0.0442 | val_acc=0.9837 | fro=11.5000 | nuc=96.3550
+[Epoch 011] train_ce=0.0235 | train_nuc=95.7075 | train_total=0.0331 | train_acc=0.9923 | val_loss=0.0383 | val_acc=0.9860 | fro=11.5000 | nuc=96.0838
+[Epoch 012] train_ce=0.0221 | train_nuc=95.7333 | train_total=0.0317 | train_acc=0.9925 | val_loss=0.0465 | val_acc=0.9850 | fro=11.5000 | nuc=95.7846
+[Epoch 013] train_ce=0.0222 | train_nuc=95.6205 | train_total=0.0318 | train_acc=0.9921 | val_loss=0.0493 | val_acc=0.9833 | fro=11.5000 | nuc=95.9240
+[Epoch 014] train_ce=0.0207 | train_nuc=95.3431 | train_total=0.0302 | train_acc=0.9930 | val_loss=0.0473 | val_acc=0.9837 | fro=11.5000 | nuc=95.9019
+[Epoch 015] train_ce=0.0196 | train_nuc=95.6501 | train_total=0.0292 | train_acc=0.9933 | val_loss=0.0453 | val_acc=0.9833 | fro=11.5000 | nuc=95.4919
+[Epoch 016] train_ce=0.0175 | train_nuc=95.2342 | train_total=0.0270 | train_acc=0.9941 | val_loss=0.0595 | val_acc=0.9800 | fro=11.5000 | nuc=95.5963
+[Epoch 017] train_ce=0.0208 | train_nuc=95.6873 | train_total=0.0303 | train_acc=0.9927 | val_loss=0.0498 | val_acc=0.9830 | fro=11.5000 | nuc=96.6085
+[Epoch 018] train_ce=0.0187 | train_nuc=95.9637 | train_total=0.0283 | train_acc=0.9933 | val_loss=0.0476 | val_acc=0.9843 | fro=11.5000 | nuc=96.1400
+[Epoch 019] train_ce=0.0172 | train_nuc=95.5242 | train_total=0.0268 | train_acc=0.9941 | val_loss=0.0573 | val_acc=0.9797 | fro=11.5000 | nuc=95.7813
+[Epoch 020] train_ce=0.0179 | train_nuc=95.9168 | train_total=0.0275 | train_acc=0.9937 | val_loss=0.0470 | val_acc=0.9827 | fro=11.5000 | nuc=95.9819
+[Epoch 021] train_ce=0.0180 | train_nuc=95.9821 | train_total=0.0276 | train_acc=0.9937 | val_loss=0.0445 | val_acc=0.9860 | fro=11.5000 | nuc=96.1295
+Early stopping triggered at epoch 21. Best val_loss=0.038344 at epoch 11.
+Done. alpha=0.0001 | best_val_loss=0.038344 | best_epoch=11
+
+================================================================================
+Training alpha=0.00010000, seed=1
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_alpha_0p0001
+[Alpha] 0.0001
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0001_seed_1
+[Target Frobenius norm] 11.500000
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.1616 | train_nuc=197.6789 | train_total=0.1814 | train_acc=0.9390 | val_loss=0.0936 | val_acc=0.9677 | fro=11.5000 | nuc=183.0729
+[Epoch 002] train_ce=0.0678 | train_nuc=171.8067 | train_total=0.0849 | train_acc=0.9773 | val_loss=0.0757 | val_acc=0.9743 | fro=11.5000 | nuc=161.0098
+[Epoch 003] train_ce=0.0506 | train_nuc=151.4660 | train_total=0.0657 | train_acc=0.9831 | val_loss=0.0744 | val_acc=0.9733 | fro=11.5000 | nuc=141.9940
+[Epoch 004] train_ce=0.0407 | train_nuc=134.2559 | train_total=0.0541 | train_acc=0.9858 | val_loss=0.0680 | val_acc=0.9770 | fro=11.5000 | nuc=127.1436
+[Epoch 005] train_ce=0.0336 | train_nuc=121.1633 | train_total=0.0457 | train_acc=0.9887 | val_loss=0.0587 | val_acc=0.9800 | fro=11.5000 | nuc=115.9966
+[Epoch 006] train_ce=0.0307 | train_nuc=111.5906 | train_total=0.0419 | train_acc=0.9893 | val_loss=0.0689 | val_acc=0.9747 | fro=11.5000 | nuc=107.7021
+[Epoch 007] train_ce=0.0301 | train_nuc=104.6539 | train_total=0.0405 | train_acc=0.9897 | val_loss=0.0583 | val_acc=0.9800 | fro=11.5000 | nuc=102.0318
+[Epoch 008] train_ce=0.0256 | train_nuc=100.0443 | train_total=0.0356 | train_acc=0.9915 | val_loss=0.0556 | val_acc=0.9807 | fro=11.5000 | nuc=98.6507
+[Epoch 009] train_ce=0.0213 | train_nuc=97.3803 | train_total=0.0310 | train_acc=0.9925 | val_loss=0.0544 | val_acc=0.9810 | fro=11.5000 | nuc=96.2566
+[Epoch 010] train_ce=0.0246 | train_nuc=95.9428 | train_total=0.0342 | train_acc=0.9916 | val_loss=0.0557 | val_acc=0.9827 | fro=11.5000 | nuc=95.9463
+[Epoch 011] train_ce=0.0250 | train_nuc=95.7351 | train_total=0.0346 | train_acc=0.9916 | val_loss=0.0599 | val_acc=0.9800 | fro=11.5000 | nuc=95.8705
+[Epoch 012] train_ce=0.0212 | train_nuc=95.1511 | train_total=0.0307 | train_acc=0.9927 | val_loss=0.0564 | val_acc=0.9807 | fro=11.5000 | nuc=95.3722
+[Epoch 013] train_ce=0.0212 | train_nuc=94.8640 | train_total=0.0307 | train_acc=0.9929 | val_loss=0.0795 | val_acc=0.9740 | fro=11.5000 | nuc=95.1122
+[Epoch 014] train_ce=0.0223 | train_nuc=94.9142 | train_total=0.0317 | train_acc=0.9921 | val_loss=0.0566 | val_acc=0.9830 | fro=11.5000 | nuc=94.9181
+[Epoch 015] train_ce=0.0193 | train_nuc=95.1018 | train_total=0.0288 | train_acc=0.9935 | val_loss=0.0560 | val_acc=0.9833 | fro=11.5000 | nuc=95.2842
+[Epoch 016] train_ce=0.0189 | train_nuc=94.8556 | train_total=0.0284 | train_acc=0.9936 | val_loss=0.0576 | val_acc=0.9810 | fro=11.5000 | nuc=95.2364
+[Epoch 017] train_ce=0.0186 | train_nuc=95.4011 | train_total=0.0281 | train_acc=0.9935 | val_loss=0.0595 | val_acc=0.9807 | fro=11.5000 | nuc=95.9468

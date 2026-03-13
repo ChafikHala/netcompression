@@ -16,6 +16,7 @@ from src.data.datasets import build_datasets
 from src.models.fcn import FCN
 from src.papers.compressibility_adv_robustness.attack_utils import (
     build_autopgd_l2_for_mnist,
+    build_fgsm_l2_for_mnist,
     generate_adversarial_batch,
 )
 from src.utils.config import load_config
@@ -90,7 +91,8 @@ def robust_accuracy_and_repr_shift(
     model: nn.Module,
     dataloader,
     device: torch.device,
-    eps_l2: float = 0.125,
+    attack: str = "autopgd",
+    eps_l2: float = 2, #before it was 0.125
     eps_step_l2: float | None = None,
     max_iter: int = 100,
     nb_random_init: int = 5,
@@ -99,17 +101,28 @@ def robust_accuracy_and_repr_shift(
 ) -> tuple[float, float]:
     model.eval()
 
-    attacker = build_autopgd_l2_for_mnist(
-        model=model,
-        device=device,
-        eps_l2_original_space=eps_l2,
-        eps_step_l2_original_space=eps_step_l2,
-        max_iter=max_iter,
-        nb_random_init=nb_random_init,
-        batch_size=attack_batch_size,
-        loss_type="cross_entropy",
-        verbose=False,
-    )
+    attack = attack.lower()
+    if attack == "autopgd":
+        attacker = build_autopgd_l2_for_mnist(
+            model=model,
+            device=device,
+            eps_l2_original_space=eps_l2,
+            eps_step_l2_original_space=eps_step_l2,
+            max_iter=max_iter,
+            nb_random_init=nb_random_init,
+            batch_size=attack_batch_size,
+            loss_type="cross_entropy",
+            verbose=False,
+        )
+    elif attack == "fgsm":
+        attacker = build_fgsm_l2_for_mnist(
+            model=model,
+            device=device,
+            eps_l2_original_space=eps_l2,
+            batch_size=attack_batch_size,
+        )
+    else:
+        raise ValueError(f"Unsupported attack: {attack}")
 
     robust_correct = 0
     total = 0
@@ -218,18 +231,19 @@ def main() -> None:
     parser.add_argument("--n-alphas", type=int, default=15)
     parser.add_argument("--alpha-min", type=float, default=1e-4)
     parser.add_argument("--alpha-max", type=float, default=3e-1)
-    parser.add_argument("--eps-l2", type=float, default=0.125)
+    parser.add_argument("--eps-l2", type=float, default=2) #before it was 0.125
     parser.add_argument("--eps-step-l2", type=float, default=None)
     parser.add_argument("--max-iter", type=int, default=100)
     parser.add_argument("--nb-random-init", type=int, default=5)
     parser.add_argument("--attack-batch-size", type=int, default=128)
     parser.add_argument("--repr-samples-cap", type=int, default=1000)
-    parser.add_argument(
-        "--save-dir",
-        type=str,
-        default="outputs/compressibility_adv_robustness/robustness_alpha_sweep",
-    )
+    parser.add_argument("--save-dir", type=str, default=None,)
+    parser.add_argument("--attack", type=str, default="autopgd", choices=["autopgd", "fgsm"],)
+
     args = parser.parse_args()
+
+    if args.save_dir is None:
+        args.save_dir = f"outputs/compressibility_adv_robustness/robustness_alpha_sweep_{args.attack}"
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     base_dir = Path(args.base_dir)
@@ -263,6 +277,7 @@ def main() -> None:
                 model=model,
                 dataloader=test_loader,
                 device=device,
+                attack=args.attack,
                 eps_l2=args.eps_l2,
                 eps_step_l2=args.eps_step_l2,
                 max_iter=args.max_iter,
@@ -274,6 +289,7 @@ def main() -> None:
             row = {
                 "alpha": alpha,
                 "seed": int(seed),
+                "attack": args.attack,
                 "checkpoint": str(ckpt_path),
                 "clean_test_accuracy": float(clean_acc),
                 "robust_test_accuracy": float(robust_acc),
@@ -282,6 +298,7 @@ def main() -> None:
             raw_results[alpha_key].append(row)
 
             print(
+                f"attack={args.attack} | "
                 f"clean_acc={clean_acc:.4f} | "
                 f"robust_acc={robust_acc:.4f} | "
                 f"repr_shift_ratio={repr_ratio:.4f}"

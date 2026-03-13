@@ -1,5 +1,5 @@
 experiment:
-  name: "resnet20_cifar10_noise60"
+  name: "resnet20_cifar10"
   output_dir: "outputs"
   seed: 42
   run_id: "auto"

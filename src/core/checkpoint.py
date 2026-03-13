@@ -40,7 +40,7 @@ def load_checkpoint(
     path: Union[str, Path],
     map_location: Union[str, torch.device] = "cpu",
 ) -> Dict[str, Any]:
-    return torch.load(Path(path), map_location=map_location)
+    return torch.load(Path(path), map_location=map_location, weights_only=True)
 
 
 def save_best_if_needed(

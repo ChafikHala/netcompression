@@ -1,0 +1,167 @@
+{
+  "0.0001": [
+    {
+      "alpha": 0.0001,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0001_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9828,
+      "robust_test_accuracy": 0.7037,
+      "repr_shift_ratio": 0.34289856313169004
+    }
+  ],
+  "0.00017716005396691217": [
+    {
+      "alpha": 0.00017716005396691217,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p00017716005396691217_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9835,
+      "robust_test_accuracy": 0.731,
+      "repr_shift_ratio": 0.357025917455554
+    }
+  ],
+  "0.000313856847215592": [
+    {
+      "alpha": 0.000313856847215592,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p000313856847215592_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9837,
+      "robust_test_accuracy": 0.7002,
+      "repr_shift_ratio": 0.3616907386481762
+    }
+  ],
+  "0.0005560289599059919": [
+    {
+      "alpha": 0.0005560289599059919,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0005560289599059919_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9824,
+      "robust_test_accuracy": 0.6949,
+      "repr_shift_ratio": 0.36241335214674475
+    }
+  ],
+  "0.0009850612054411157": [
+    {
+      "alpha": 0.0009850612054411157,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0009850612054411157_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9844,
+      "robust_test_accuracy": 0.7355,
+      "repr_shift_ratio": 0.3792082572132349
+    }
+  ],
+  "0.0017451349631665944": [
+    {
+      "alpha": 0.0017451349631665944,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0017451349631665944_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9803,
+      "robust_test_accuracy": 0.7143,
+      "repr_shift_ratio": 0.3738895175755024
+    }
+  ],
+  "0.0030916820425413915": [
+    {
+      "alpha": 0.0030916820425413915,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p0030916820425413915_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9764,
+      "robust_test_accuracy": 0.7419,
+      "repr_shift_ratio": 0.36787761632353067
+    }
+  ],
+  "0.005477225575051662": [
+    {
+      "alpha": 0.005477225575051662,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p005477225575051662_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9758,
+      "robust_test_accuracy": 0.7174,
+      "repr_shift_ratio": 0.35123589914664627
+    }
+  ],
+  "0.00970345578465104": [
+    {
+      "alpha": 0.00970345578465104,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p00970345578465104_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.967,
+      "robust_test_accuracy": 0.7314,
+      "repr_shift_ratio": 0.33702783547341825
+    }
+  ],
+  "0.017190647504743226": [
+    {
+      "alpha": 0.017190647504743226,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p017190647504743226_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9596,
+      "robust_test_accuracy": 0.7031,
+      "repr_shift_ratio": 0.33135402581095696
+    }
+  ],
+  "0.030454960396664742": [
+    {
+      "alpha": 0.030454960396664742,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p030454960396664742_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9525,
+      "robust_test_accuracy": 0.6673,
+      "repr_shift_ratio": 0.3428572335317731
+    }
+  ],
+  "0.05395402427433299": [
+    {
+      "alpha": 0.05395402427433299,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p05395402427433299_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9451,
+      "robust_test_accuracy": 0.6453,
+      "repr_shift_ratio": 0.3376434073075652
+    }
+  ],
+  "0.09558497852172912": [
+    {
+      "alpha": 0.09558497852172912,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p09558497852172912_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9378,
+      "robust_test_accuracy": 0.5773,
+      "repr_shift_ratio": 0.3609386122226715
+    }
+  ],
+  "0.16933839953335672": [
+    {
+      "alpha": 0.16933839953335672,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p16933839953335672_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9306,
+      "robust_test_accuracy": 0.4702,
+      "repr_shift_ratio": 0.4126776563823223
+    }
+  ],
+  "0.3": [
+    {
+      "alpha": 0.3,
+      "seed": 0,
+      "attack": "fgsm",
+      "checkpoint": "outputs/compressibility_adv_robustness/model_one_layer_FC_alpha_0p3_seed_0/checkpoints/best.pt",
+      "clean_test_accuracy": 0.9229,
+      "robust_test_accuracy": 0.3604,
+      "repr_shift_ratio": 0.46998273488879205
+    }
+  ]
+}

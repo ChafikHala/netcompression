@@ -173,8 +173,10 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
 
 
     # Apply Frobenius normalization only when alpha > 0
-    use_frobenius_normalization = float(alpha) > 0.0
-    target_fro_norm = 1.0
+    # use_frobenius_normalization = float(alpha) > 0.0
+    use_frobenius_normalization = True
+
+    target_fro_norm = 11.5
 
     if use_frobenius_normalization:
         weight = get_single_hidden_layer_weight(model)
@@ -243,8 +245,8 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             # Enforce fixed Frobenius norm after each optimizer step
             weight = get_single_hidden_layer_weight(model)
             
-            if alpha:
-                frobenius_normalize_(weight, target_fro_norm)
+            # if alpha
+            frobenius_normalize_(weight, target_fro_norm)
 
             bs = x.size(0)
             preds = logits.argmax(dim=1)
@@ -261,8 +263,7 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
         train_acc = running_correct / max(running_total, 1)
 
         val_res = evaluate(model, val_loader, criterion, device)
-        test_res = evaluate(model, test_loader, criterion, device)
-
+        # test_res = evaluate(model, test_loader, criterion, device)
 
         matrix_stats = collect_matrix_stats(get_single_hidden_layer_weight(model))
 
@@ -275,8 +276,8 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             "train_accuracy": train_acc,
             "val_loss": float(val_res.loss),
             "val_accuracy": float(val_res.accuracy),
-            "test_loss": float(test_res.loss),
-            "test_accuracy": float(test_res.accuracy),
+            # "test_loss": float(test_res.loss),
+            # "test_accuracy": float(test_res.accuracy),
             "fro_norm": matrix_stats["fro_norm"],
             "nuclear_norm": matrix_stats["nuclear_norm"],
         }
@@ -291,7 +292,7 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             f"train_acc={train_acc:.4f} | "
             f"val_loss={val_res.loss:.4f} | "
             f"val_acc={val_res.accuracy:.4f} | "
-            f"test_acc={test_res.accuracy:.4f} | "
+            # f"test_acc={test_res.accuracy:.4f} | "
             f"fro={matrix_stats['fro_norm']:.4f} | "
             f"nuc={matrix_stats['nuclear_norm']:.4f}"
         )

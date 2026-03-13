@@ -4,7 +4,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-from art.attacks.evasion import AutoProjectedGradientDescent
+from art.attacks.evasion import AutoProjectedGradientDescent, FastGradientMethod
 from art.estimators.classification import PyTorchClassifier
 
 
@@ -49,7 +49,7 @@ def build_art_classifier(
 def build_autopgd_l2_for_mnist(
     model: nn.Module,
     device: torch.device,
-    eps_l2_original_space: float = 0.125,
+    eps_l2_original_space: float = 2, #before it was 0.125
     eps_step_l2_original_space: float | None = None,
     max_iter: int = 100,
     nb_random_init: int = 5,
@@ -77,8 +77,27 @@ def build_autopgd_l2_for_mnist(
     return attacker
 
 
+def build_fgsm_l2_for_mnist(
+    model: nn.Module,
+    device: torch.device,
+    eps_l2_original_space: float = 2, #before it was 0.125
+    batch_size: int = 128,
+) -> FastGradientMethod:
+    classifier = build_art_classifier(model, device=device, nb_classes=2)
+
+    attacker = FastGradientMethod(
+        estimator=classifier,
+        norm=2,
+        eps=scale_l2_budget_to_normalized_space(eps_l2_original_space),
+        targeted=False,
+        batch_size=int(batch_size),
+    )
+    return attacker
+
+
+
 def generate_adversarial_batch(
-    attacker: AutoProjectedGradientDescent,
+    attacker,
     x: torch.Tensor,
     y: torch.Tensor,
     device: torch.device,
