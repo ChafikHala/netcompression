@@ -1,0 +1,295 @@
+Start time: Sat Mar 14 12:14:05 PM CET 2026
+Host: albatros.polytechnique.fr
+Sat Mar 14 12:14:05 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               Off |   00000000:01:00.0 Off |                  Off |
+| 62%   79C    P0            100W /  230W |     138MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1639117      G   /usr/libexec/Xorg                        94MiB |
+|    0   N/A  N/A         1639144      G   /usr/bin/gnome-shell                      8MiB |
++-----------------------------------------------------------------------------------------+
+cuda available: True
+device count: 1
+device name: NVIDIA RTX A5000
+Using device: cuda
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+
+====================================================================================================
+Training model for label-noise alpha = 1.000
+====================================================================================================
+[Epoch 001/200] loss=2.3396 | train_acc(noisy-online)=0.1001 | lr=0.09999
+[Epoch 002/200] loss=2.3086 | train_acc(noisy-online)=0.1017 | lr=0.09998
+[Epoch 003/200] loss=2.3064 | train_acc(noisy-online)=0.1035 | lr=0.09994
+[Epoch 004/200] loss=2.3045 | train_acc(noisy-online)=0.1033 | lr=0.09990
+[Epoch 005/200] loss=2.3034 | train_acc(noisy-online)=0.1058 | lr=0.09985
+[Epoch 006/200] loss=2.3026 | train_acc(noisy-online)=0.1071 | lr=0.09978
+[Epoch 007/200] loss=2.3021 | train_acc(noisy-online)=0.1082 | lr=0.09970
+[Epoch 008/200] loss=2.3008 | train_acc(noisy-online)=0.1130 | lr=0.09961
+[Epoch 009/200] loss=2.2994 | train_acc(noisy-online)=0.1137 | lr=0.09950
+[Epoch 010/200] loss=2.2982 | train_acc(noisy-online)=0.1141 | lr=0.09938
+[Epoch 011/200] loss=2.2963 | train_acc(noisy-online)=0.1206 | lr=0.09926
+[Epoch 012/200] loss=2.2936 | train_acc(noisy-online)=0.1237 | lr=0.09911
+[Epoch 013/200] loss=2.2905 | train_acc(noisy-online)=0.1274 | lr=0.09896
+[Epoch 014/200] loss=2.2853 | train_acc(noisy-online)=0.1329 | lr=0.09880
+[Epoch 015/200] loss=2.2785 | train_acc(noisy-online)=0.1411 | lr=0.09862
+[Epoch 016/200] loss=2.2691 | train_acc(noisy-online)=0.1485 | lr=0.09843
+[Epoch 017/200] loss=2.2582 | train_acc(noisy-online)=0.1557 | lr=0.09823
+[Epoch 018/200] loss=2.2404 | train_acc(noisy-online)=0.1723 | lr=0.09801
+[Epoch 019/200] loss=2.2207 | train_acc(noisy-online)=0.1820 | lr=0.09779
+[Epoch 020/200] loss=2.1956 | train_acc(noisy-online)=0.1960 | lr=0.09755
+[Epoch 021/200] loss=2.1611 | train_acc(noisy-online)=0.2130 | lr=0.09730
+[Epoch 022/200] loss=2.1212 | train_acc(noisy-online)=0.2351 | lr=0.09704
+[Epoch 023/200] loss=2.0726 | train_acc(noisy-online)=0.2527 | lr=0.09677
+[Epoch 024/200] loss=2.0172 | train_acc(noisy-online)=0.2813 | lr=0.09649
+[Epoch 025/200] loss=1.9431 | train_acc(noisy-online)=0.3134 | lr=0.09619
+[Epoch 026/200] loss=1.8676 | train_acc(noisy-online)=0.3416 | lr=0.09589
+[Epoch 027/200] loss=1.7857 | train_acc(noisy-online)=0.3741 | lr=0.09557
+[Epoch 028/200] loss=1.6948 | train_acc(noisy-online)=0.4087 | lr=0.09524
+[Epoch 029/200] loss=1.5931 | train_acc(noisy-online)=0.4463 | lr=0.09490
+[Epoch 030/200] loss=1.4925 | train_acc(noisy-online)=0.4854 | lr=0.09455
+[Epoch 031/200] loss=1.3954 | train_acc(noisy-online)=0.5181 | lr=0.09419
+[Epoch 032/200] loss=1.2869 | train_acc(noisy-online)=0.5573 | lr=0.09382
+[Epoch 033/200] loss=1.1908 | train_acc(noisy-online)=0.5906 | lr=0.09343
+[Epoch 034/200] loss=1.0993 | train_acc(noisy-online)=0.6203 | lr=0.09304
+[Epoch 035/200] loss=1.0048 | train_acc(noisy-online)=0.6540 | lr=0.09263
+[Epoch 036/200] loss=0.9160 | train_acc(noisy-online)=0.6857 | lr=0.09222
+[Epoch 037/200] loss=0.8427 | train_acc(noisy-online)=0.7127 | lr=0.09179
+[Epoch 038/200] loss=0.7588 | train_acc(noisy-online)=0.7412 | lr=0.09135
+[Epoch 039/200] loss=0.7079 | train_acc(noisy-online)=0.7560 | lr=0.09091
+[Epoch 040/200] loss=0.6430 | train_acc(noisy-online)=0.7791 | lr=0.09045
+[Epoch 041/200] loss=0.5946 | train_acc(noisy-online)=0.7956 | lr=0.08998
+[Epoch 042/200] loss=0.5377 | train_acc(noisy-online)=0.8160 | lr=0.08951
+[Epoch 043/200] loss=0.4963 | train_acc(noisy-online)=0.8318 | lr=0.08902
+[Epoch 044/200] loss=0.4505 | train_acc(noisy-online)=0.8468 | lr=0.08853
+[Epoch 045/200] loss=0.3954 | train_acc(noisy-online)=0.8656 | lr=0.08802
+[Epoch 046/200] loss=0.3763 | train_acc(noisy-online)=0.8740 | lr=0.08751
+[Epoch 047/200] loss=0.3544 | train_acc(noisy-online)=0.8801 | lr=0.08698
+[Epoch 048/200] loss=0.3373 | train_acc(noisy-online)=0.8859 | lr=0.08645
+[Epoch 049/200] loss=0.3071 | train_acc(noisy-online)=0.8962 | lr=0.08591
+[Epoch 050/200] loss=0.2641 | train_acc(noisy-online)=0.9120 | lr=0.08536
+[Epoch 051/200] loss=0.2569 | train_acc(noisy-online)=0.9157 | lr=0.08480
+[Epoch 052/200] loss=0.2287 | train_acc(noisy-online)=0.9247 | lr=0.08423
+[Epoch 053/200] loss=0.2134 | train_acc(noisy-online)=0.9294 | lr=0.08365
+[Epoch 054/200] loss=0.2017 | train_acc(noisy-online)=0.9324 | lr=0.08307
+[Epoch 055/200] loss=0.1927 | train_acc(noisy-online)=0.9365 | lr=0.08247
+[Epoch 056/200] loss=0.1516 | train_acc(noisy-online)=0.9509 | lr=0.08187
+[Epoch 057/200] loss=0.1808 | train_acc(noisy-online)=0.9400 | lr=0.08126
+[Epoch 058/200] loss=0.1695 | train_acc(noisy-online)=0.9439 | lr=0.08065
+[Epoch 059/200] loss=0.1375 | train_acc(noisy-online)=0.9553 | lr=0.08002
+[Epoch 060/200] loss=0.1144 | train_acc(noisy-online)=0.9626 | lr=0.07939
+[Epoch 061/200] loss=0.1021 | train_acc(noisy-online)=0.9671 | lr=0.07875
+[Epoch 062/200] loss=0.1022 | train_acc(noisy-online)=0.9670 | lr=0.07810
+[Epoch 063/200] loss=0.0803 | train_acc(noisy-online)=0.9756 | lr=0.07745
+[Epoch 064/200] loss=0.0598 | train_acc(noisy-online)=0.9822 | lr=0.07679
+[Epoch 065/200] loss=0.0498 | train_acc(noisy-online)=0.9854 | lr=0.07612
+[Epoch 066/200] loss=0.0474 | train_acc(noisy-online)=0.9853 | lr=0.07545
+[Epoch 067/200] loss=0.0560 | train_acc(noisy-online)=0.9829 | lr=0.07477
+[Epoch 068/200] loss=0.0713 | train_acc(noisy-online)=0.9772 | lr=0.07409
+[Epoch 069/200] loss=0.0647 | train_acc(noisy-online)=0.9796 | lr=0.07340
+[Epoch 070/200] loss=0.0605 | train_acc(noisy-online)=0.9810 | lr=0.07270
+[Epoch 071/200] loss=0.0468 | train_acc(noisy-online)=0.9856 | lr=0.07200
+[Epoch 072/200] loss=0.0295 | train_acc(noisy-online)=0.9920 | lr=0.07129
+[Epoch 073/200] loss=0.0270 | train_acc(noisy-online)=0.9925 | lr=0.07058
+[Epoch 074/200] loss=0.0141 | train_acc(noisy-online)=0.9970 | lr=0.06986
+[Epoch 075/200] loss=0.0047 | train_acc(noisy-online)=0.9994 | lr=0.06913
+[Epoch 076/200] loss=0.0023 | train_acc(noisy-online)=0.9999 | lr=0.06841
+[Epoch 077/200] loss=0.0015 | train_acc(noisy-online)=0.9999 | lr=0.06767
+[Epoch 078/200] loss=0.0009 | train_acc(noisy-online)=1.0000 | lr=0.06694
+[Epoch 079/200] loss=0.0007 | train_acc(noisy-online)=1.0000 | lr=0.06620
+[Epoch 080/200] loss=0.0007 | train_acc(noisy-online)=1.0000 | lr=0.06545
+[Epoch 081/200] loss=0.0007 | train_acc(noisy-online)=0.9999 | lr=0.06470
+[Epoch 082/200] loss=0.0005 | train_acc(noisy-online)=1.0000 | lr=0.06395
+[Epoch 083/200] loss=0.0006 | train_acc(noisy-online)=1.0000 | lr=0.06319
+[Epoch 084/200] loss=0.0008 | train_acc(noisy-online)=0.9999 | lr=0.06243
+[Epoch 085/200] loss=0.0005 | train_acc(noisy-online)=1.0000 | lr=0.06167
+[Epoch 086/200] loss=0.0004 | train_acc(noisy-online)=1.0000 | lr=0.06091
+[Epoch 087/200] loss=0.0004 | train_acc(noisy-online)=1.0000 | lr=0.06014
+[Epoch 088/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05937
+[Epoch 089/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05860
+[Epoch 090/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05782
+[Epoch 091/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05705
+[Epoch 092/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05627
+[Epoch 093/200] loss=0.0004 | train_acc(noisy-online)=1.0000 | lr=0.05549
+[Epoch 094/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05471
+[Epoch 095/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.05392
+[Epoch 096/200] loss=0.0005 | train_acc(noisy-online)=0.9999 | lr=0.05314
+[Epoch 097/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05236
+[Epoch 098/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.05157
+[Epoch 099/200] loss=0.0003 | train_acc(noisy-online)=1.0000 | lr=0.05079
+[Epoch 100/200] loss=0.0004 | train_acc(noisy-online)=1.0000 | lr=0.05000
+[Epoch 101/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04921
+[Epoch 102/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04843
+[Epoch 103/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04764
+[Epoch 104/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04686
+[Epoch 105/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04608
+[Epoch 106/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04529
+[Epoch 107/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04451
+[Epoch 108/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04373
+[Epoch 109/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04295
+[Epoch 110/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04218
+[Epoch 111/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04140
+[Epoch 112/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.04063
+[Epoch 113/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.03986
+[Epoch 114/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.03909
+[Epoch 115/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03833
+[Epoch 116/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03757
+[Epoch 117/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03681
+[Epoch 118/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03605
+[Epoch 119/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.03530
+[Epoch 120/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.03455
+[Epoch 121/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03380
+[Epoch 122/200] loss=0.0002 | train_acc(noisy-online)=1.0000 | lr=0.03306
+[Epoch 123/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03233
+[Epoch 124/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03159
+[Epoch 125/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03087
+[Epoch 126/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.03014
+[Epoch 127/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02942
+[Epoch 128/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02871
+[Epoch 129/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02800
+[Epoch 130/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02730
+[Epoch 131/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02660
+[Epoch 132/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02591
+[Epoch 133/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02523
+[Epoch 134/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02455
+[Epoch 135/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02388
+[Epoch 136/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02321
+[Epoch 137/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02255
+[Epoch 138/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02190
+[Epoch 139/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02125
+[Epoch 140/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.02061
+[Epoch 141/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01998
+[Epoch 142/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01935
+[Epoch 143/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01874
+[Epoch 144/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01813
+[Epoch 145/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01753
+[Epoch 146/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01693
+[Epoch 147/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01635
+[Epoch 148/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01577
+[Epoch 149/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01520
+[Epoch 150/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01464
+[Epoch 151/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01409
+[Epoch 152/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01355
+[Epoch 153/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01302
+[Epoch 154/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01249
+[Epoch 155/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01198
+[Epoch 156/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01147
+[Epoch 157/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01098
+[Epoch 158/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01049
+[Epoch 159/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.01002
+[Epoch 160/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00955
+[Epoch 161/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00909
+[Epoch 162/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00865
+[Epoch 163/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00821
+[Epoch 164/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00778
+[Epoch 165/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00737
+[Epoch 166/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00696
+[Epoch 167/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00657
+[Epoch 168/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00618
+[Epoch 169/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00581
+[Epoch 170/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00545
+[Epoch 171/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00510
+[Epoch 172/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00476
+[Epoch 173/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00443
+[Epoch 174/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00411
+[Epoch 175/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00381
+[Epoch 176/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00351
+[Epoch 177/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00323
+[Epoch 178/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00296
+[Epoch 179/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00270
+[Epoch 180/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00245
+[Epoch 181/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00221
+[Epoch 182/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00199
+[Epoch 183/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00177
+[Epoch 184/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00157
+[Epoch 185/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00138
+[Epoch 186/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00120
+[Epoch 187/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00104
+[Epoch 188/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00089
+[Epoch 189/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00074
+[Epoch 190/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00062
+[Epoch 191/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00050
+[Epoch 192/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00039
+[Epoch 193/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00030
+[Epoch 194/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00022
+[Epoch 195/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00015
+[Epoch 196/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00010
+[Epoch 197/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00006
+[Epoch 198/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00002
+[Epoch 199/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00001
+[Epoch 200/200] loss=0.0001 | train_acc(noisy-online)=1.0000 | lr=0.00000
+[alpha=1.000] noisy_train_acc=1.0000 | train_acc=0.1009 | test_acc=0.0975 | rel_gap=0.0333
+    pruning_ratio=0.000 | train_acc_pruned=0.1009 | retained_train_acc=1.0000
+    pruning_ratio=0.100 | train_acc_pruned=0.1009 | retained_train_acc=1.0000
+    pruning_ratio=0.200 | train_acc_pruned=0.1009 | retained_train_acc=1.0000
+    pruning_ratio=0.300 | train_acc_pruned=0.1007 | retained_train_acc=0.9984
+    pruning_ratio=0.400 | train_acc_pruned=0.1010 | retained_train_acc=1.0012
+    pruning_ratio=0.500 | train_acc_pruned=0.1039 | retained_train_acc=1.0301
+    pruning_ratio=0.600 | train_acc_pruned=0.1005 | retained_train_acc=0.9962
+    pruning_ratio=0.700 | train_acc_pruned=0.0922 | retained_train_acc=0.9143
+    pruning_ratio=0.750 | train_acc_pruned=0.0978 | retained_train_acc=0.9701
+    pruning_ratio=0.800 | train_acc_pruned=0.0994 | retained_train_acc=0.9855
+    pruning_ratio=0.850 | train_acc_pruned=0.1008 | retained_train_acc=0.9998
+    pruning_ratio=0.900 | train_acc_pruned=0.1000 | retained_train_acc=0.9915
+    pruning_ratio=0.950 | train_acc_pruned=0.1000 | retained_train_acc=0.9915
+    pruning_ratio=0.980 | train_acc_pruned=0.1000 | retained_train_acc=0.9915
+    pruning_ratio=0.990 | train_acc_pruned=0.1000 | retained_train_acc=0.9915
+
+====================================================================================================
+Training model for label-noise alpha = 0.800
+====================================================================================================
+[Epoch 001/200] loss=2.3207 | train_acc(noisy-online)=0.1236 | lr=0.09999
+[Epoch 002/200] loss=2.2920 | train_acc(noisy-online)=0.1384 | lr=0.09998
+[Epoch 003/200] loss=2.2837 | train_acc(noisy-online)=0.1484 | lr=0.09994
+[Epoch 004/200] loss=2.2781 | train_acc(noisy-online)=0.1586 | lr=0.09990
+[Epoch 005/200] loss=2.2736 | train_acc(noisy-online)=0.1623 | lr=0.09985
+[Epoch 006/200] loss=2.2691 | train_acc(noisy-online)=0.1695 | lr=0.09978
+[Epoch 007/200] loss=2.2632 | train_acc(noisy-online)=0.1754 | lr=0.09970
+[Epoch 008/200] loss=2.2570 | train_acc(noisy-online)=0.1807 | lr=0.09961
+[Epoch 009/200] loss=2.2483 | train_acc(noisy-online)=0.1867 | lr=0.09950
+[Epoch 010/200] loss=2.2391 | train_acc(noisy-online)=0.1916 | lr=0.09938
+[Epoch 011/200] loss=2.2283 | train_acc(noisy-online)=0.1974 | lr=0.09926
+[Epoch 012/200] loss=2.2133 | train_acc(noisy-online)=0.2069 | lr=0.09911
+[Epoch 013/200] loss=2.1951 | train_acc(noisy-online)=0.2150 | lr=0.09896
+[Epoch 014/200] loss=2.1738 | train_acc(noisy-online)=0.2266 | lr=0.09880
+[Epoch 015/200] loss=2.1447 | train_acc(noisy-online)=0.2386 | lr=0.09862
+[Epoch 016/200] loss=2.1130 | train_acc(noisy-online)=0.2531 | lr=0.09843
+[Epoch 017/200] loss=2.0740 | train_acc(noisy-online)=0.2685 | lr=0.09823
+[Epoch 018/200] loss=2.0231 | train_acc(noisy-online)=0.2910 | lr=0.09801
+[Epoch 019/200] loss=1.9683 | train_acc(noisy-online)=0.3099 | lr=0.09779
+[Epoch 020/200] loss=1.9039 | train_acc(noisy-online)=0.3360 | lr=0.09755
+[Epoch 021/200] loss=1.8303 | train_acc(noisy-online)=0.3639 | lr=0.09730
+[Epoch 022/200] loss=1.7482 | train_acc(noisy-online)=0.3941 | lr=0.09704
+[Epoch 023/200] loss=1.6594 | train_acc(noisy-online)=0.4255 | lr=0.09677
+[Epoch 024/200] loss=1.5723 | train_acc(noisy-online)=0.4591 | lr=0.09649
+[Epoch 025/200] loss=1.4678 | train_acc(noisy-online)=0.4949 | lr=0.09619
+[Epoch 026/200] loss=1.3637 | train_acc(noisy-online)=0.5315 | lr=0.09589
+[Epoch 027/200] loss=1.2625 | train_acc(noisy-online)=0.5678 | lr=0.09557
+[Epoch 028/200] loss=1.1608 | train_acc(noisy-online)=0.6013 | lr=0.09524
+[Epoch 029/200] loss=1.0713 | train_acc(noisy-online)=0.6312 | lr=0.09490
+[Epoch 030/200] loss=0.9764 | train_acc(noisy-online)=0.6642 | lr=0.09455
+[Epoch 031/200] loss=0.9008 | train_acc(noisy-online)=0.6894 | lr=0.09419
+[Epoch 032/200] loss=0.8117 | train_acc(noisy-online)=0.7206 | lr=0.09382
+[Epoch 033/200] loss=0.7490 | train_acc(noisy-online)=0.7441 | lr=0.09343
+[Epoch 034/200] loss=0.6819 | train_acc(noisy-online)=0.7660 | lr=0.09304
+[Epoch 035/200] loss=0.6181 | train_acc(noisy-online)=0.7874 | lr=0.09263
+[Epoch 036/200] loss=0.5650 | train_acc(noisy-online)=0.8067 | lr=0.09222
+[Epoch 037/200] loss=0.5205 | train_acc(noisy-online)=0.8230 | lr=0.09179
+[Epoch 038/200] loss=0.4481 | train_acc(noisy-online)=0.8497 | lr=0.09135
+[Epoch 039/200] loss=0.4372 | train_acc(noisy-online)=0.8525 | lr=0.09091
+[Epoch 040/200] loss=0.4063 | train_acc(noisy-online)=0.8600 | lr=0.09045
+[Epoch 041/200] loss=0.3605 | train_acc(noisy-online)=0.8792 | lr=0.08998

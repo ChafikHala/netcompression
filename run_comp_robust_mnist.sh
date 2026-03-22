@@ -37,19 +37,19 @@ python -c "import torch; print('cuda available:', torch.cuda.is_available()); pr
 
 python -m src.papers.compressibility_adv_robustness.run_mnist_one_layer_alpha_sweep \
   --config configs/papers/compressibility_adv_robustness/mnist_one_layer_fcn.yaml \
-  --n-alphas 15 \
+  --n-alphas 10 \
   --alpha-min 1e-4 \
-  --alpha-max 3e-1 \
-  --seeds 0
+  --alpha-max 8e-1 \
+  --seeds 2 3
   # --seeds 0 1 2 3 4
 
 
-python -m src.papers.compressibility_adv_robustness.eval_mnist_one_layer_robustness_and_repr_shift \
-  --config configs/papers/compressibility_adv_robustness/mnist_one_layer_fcn.yaml \
-  --n-alphas 15 \
-  --alpha-min 1e-4 \
-  --alpha-max 3e-1 \
-  --seeds 0
+# python -m src.papers.compressibility_adv_robustness.eval_mnist_one_layer_robustness_and_repr_shift \
+#   --config configs/papers/compressibility_adv_robustness/mnist_one_layer_fcn.yaml \
+#   --n-alphas 15 \
+#   --alpha-min 1e-4 \
+#   --alpha-max 3e-1 \
+#   --seeds 0
   # --seeds 0 1 2 3 4
 
 echo "End time: $(date)"

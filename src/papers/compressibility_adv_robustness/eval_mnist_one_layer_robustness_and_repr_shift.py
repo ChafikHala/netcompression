@@ -183,25 +183,67 @@ def aggregate_over_seeds(raw_results: dict[str, list[dict]]) -> dict[str, dict]:
         }
     return out
 
+def _apply_elegant_style(ax):
+    """Shared style: fine grey grid, clean spines, high-quality look."""
+    ax.set_axisbelow(True)
+    ax.grid(which="major", color="#CCCCCC", linewidth=0.6, linestyle="-")
+    ax.grid(which="minor", color="#E8E8E8", linewidth=0.3, linestyle="-")
+    ax.minorticks_on()
+    for spine in ["top", "right"]:
+        ax.spines[spine].set_visible(False)
+    for spine in ["left", "bottom"]:
+        ax.spines[spine].set_linewidth(0.7)
+        ax.spines[spine].set_color("#888888")
+    ax.tick_params(axis="both", labelsize=11, length=3, width=0.7)
+    ax.figure.patch.set_facecolor("white")
+    ax.set_facecolor("white")
 
 def plot_accuracy_figure(agg: dict[str, dict], save_path: Path) -> None:
     alphas = np.array(sorted([float(k) for k in agg.keys()]))
 
-    clean_mean = np.array([agg[str(a)]["clean_test_accuracy_mean"] for a in alphas])
-    clean_std = np.array([agg[str(a)]["clean_test_accuracy_std"] for a in alphas])
+    clean_mean  = np.array([agg[str(a)]["clean_test_accuracy_mean"]  for a in alphas])
+    clean_std   = np.array([agg[str(a)]["clean_test_accuracy_std"]   for a in alphas])
     robust_mean = np.array([agg[str(a)]["robust_test_accuracy_mean"] for a in alphas])
-    robust_std = np.array([agg[str(a)]["robust_test_accuracy_std"] for a in alphas])
+    robust_std  = np.array([agg[str(a)]["robust_test_accuracy_std"]  for a in alphas])
 
-    plt.figure(figsize=(8, 5))
-    plt.errorbar(alphas, clean_mean, yerr=clean_std, marker="o", linewidth=2, capsize=3, label="Std. Test Acc.")
-    plt.errorbar(alphas, robust_mean, yerr=robust_std, marker="s", linewidth=2, capsize=3, label="Rob. Test Acc.")
-    plt.xscale("log")
-    plt.xlabel(r"$\alpha$", fontsize=18)
-    plt.ylabel("Accuracy", fontsize=18)
-    plt.grid(True, which="both", alpha=0.3)
-    plt.legend(fontsize=14)
+
+    PALETTE = ["#4169E1", "#228B22"]  # royal blue, royal green
+
+    fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
+
+    for mean, std, marker, color, label in [
+        (clean_mean,  clean_std,  "o", PALETTE[0], r"Clean Acc."),
+        (robust_mean, robust_std, "D", PALETTE[1], "Rob. Acc."),
+    ]:
+        ax.fill_between(alphas, mean - std, mean + std,
+                        color=color, alpha=0.12, linewidth=0)
+        ax.errorbar(
+            alphas, mean,
+            yerr=std,
+            color=color,
+            marker=marker,
+            markersize=5,
+            markerfacecolor="white",
+            markeredgecolor=color,
+            markeredgewidth=1.5,
+            linewidth=1.4,
+            elinewidth=0.8,
+            capsize=2,
+            capthick=0.8,
+            label=label,
+            zorder=3,
+        )
+
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$\alpha$", fontsize=15, labelpad=8)
+    ax.set_ylabel("Test Accuracy", fontsize=15, labelpad=10)
+    ax.legend(fontsize=15, frameon=True, framealpha=0.95,
+              edgecolor="#DDDDDD", loc="best",
+              handlelength=2, borderpad=0.9, labelspacing=0.6)
+
+    _apply_elegant_style(ax)
     plt.tight_layout()
-    plt.savefig(save_path, dpi=200, bbox_inches="tight")
+    plt.savefig(save_path, dpi=180, bbox_inches="tight")
     plt.close()
 
 
@@ -209,16 +251,41 @@ def plot_repr_shift_figure(agg: dict[str, dict], save_path: Path) -> None:
     alphas = np.array(sorted([float(k) for k in agg.keys()]))
 
     ratio_mean = np.array([agg[str(a)]["repr_shift_ratio_mean"] for a in alphas])
-    ratio_std = np.array([agg[str(a)]["repr_shift_ratio_std"] for a in alphas])
+    ratio_std  = np.array([agg[str(a)]["repr_shift_ratio_std"]  for a in alphas])
 
-    plt.figure(figsize=(8, 5))
-    plt.errorbar(alphas, ratio_mean, yerr=ratio_std, marker="o", linewidth=2, capsize=3)
-    plt.xscale("log")
-    plt.xlabel(r"$\alpha$", fontsize=18)
-    plt.ylabel(r"$\|z_{\mathrm{adv}}-z\|_2 / \|z\|_2$", fontsize=18)
-    plt.grid(True, which="both", alpha=0.3)
+    COLOR = "#3BB273"
+
+    fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
+
+    ax.fill_between(alphas, ratio_mean - ratio_std, ratio_mean + ratio_std,
+                    color=COLOR, alpha=0.12, linewidth=0)
+    ax.errorbar(
+        alphas, ratio_mean,
+        yerr=ratio_std,
+        color=COLOR,
+        marker="o",
+        markersize=5,
+        markerfacecolor="white",
+        markeredgecolor=COLOR,
+        markeredgewidth=1.5,
+        linewidth=1.4,
+        elinewidth=0.8,
+        capsize=2,
+        capthick=0.8,
+        zorder=3,
+    )
+
+    ax.set_xscale("log")
+    ax.set_xlabel(r"$\alpha$", fontsize=15, labelpad=8)
+
+    ax.set_ylabel(
+        r"$\||z_{\mathrm{adv}} - z\||_2$" + r"$/ \;\||z\||_2$",
+        fontsize=13,
+        labelpad=10,
+    )
+    _apply_elegant_style(ax)
     plt.tight_layout()
-    plt.savefig(save_path, dpi=200, bbox_inches="tight")
+    plt.savefig(save_path, dpi=180, bbox_inches="tight")
     plt.close()
 
 
@@ -238,7 +305,7 @@ def main() -> None:
     parser.add_argument("--attack-batch-size", type=int, default=128)
     parser.add_argument("--repr-samples-cap", type=int, default=1000)
     parser.add_argument("--save-dir", type=str, default=None,)
-    parser.add_argument("--attack", type=str, default="autopgd", choices=["autopgd", "fgsm"],)
+    parser.add_argument("--attack", type=str, default="fgsm", choices=["autopgd", "fgsm"],)
 
     args = parser.parse_args()
 

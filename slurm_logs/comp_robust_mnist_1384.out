@@ -1,0 +1,326 @@
+Start time: Fri Mar 13 09:03:58 PM CET 2026
+Host: albatros.polytechnique.fr
+Fri Mar 13 21:03:58 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               Off |   00000000:01:00.0 Off |                  Off |
+| 30%   36C    P8             28W /  230W |     138MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1639117      G   /usr/libexec/Xorg                        94MiB |
+|    0   N/A  N/A         1639144      G   /usr/bin/gnome-shell                      8MiB |
++-----------------------------------------------------------------------------------------+
+cuda available: True
+device count: 1
+device name: NVIDIA RTX A5000
+Frobenius norms: [20.0, 40.0, 60.0, 80.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0]
+Seeds: [0]
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=20.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_20
+[Target Frobenius norm] 20.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_20_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.1641 | train_acc=0.9374 | val_loss=0.0901 | val_acc=0.9700 | fro=20.0000 | nuc=363.6303
+[Epoch 002] train_ce=0.0696 | train_acc=0.9764 | val_loss=0.0613 | val_acc=0.9783 | fro=20.0000 | nuc=356.4118
+[Epoch 003] train_ce=0.0505 | train_acc=0.9828 | val_loss=0.0523 | val_acc=0.9820 | fro=20.0000 | nuc=349.4402
+[Epoch 004] train_ce=0.0390 | train_acc=0.9867 | val_loss=0.0480 | val_acc=0.9813 | fro=20.0000 | nuc=342.5687
+[Epoch 005] train_ce=0.0313 | train_acc=0.9896 | val_loss=0.0496 | val_acc=0.9810 | fro=20.0000 | nuc=335.9263
+[Epoch 006] train_ce=0.0237 | train_acc=0.9922 | val_loss=0.0465 | val_acc=0.9813 | fro=20.0000 | nuc=330.2000
+[Epoch 007] train_ce=0.0215 | train_acc=0.9933 | val_loss=0.0427 | val_acc=0.9827 | fro=20.0000 | nuc=323.9518
+[Epoch 008] train_ce=0.0169 | train_acc=0.9946 | val_loss=0.0547 | val_acc=0.9820 | fro=20.0000 | nuc=318.9169
+[Epoch 009] train_ce=0.0133 | train_acc=0.9962 | val_loss=0.0440 | val_acc=0.9847 | fro=20.0000 | nuc=314.3668
+[Epoch 010] train_ce=0.0112 | train_acc=0.9968 | val_loss=0.0478 | val_acc=0.9833 | fro=20.0000 | nuc=309.6829
+[Epoch 011] train_ce=0.0127 | train_acc=0.9957 | val_loss=0.0436 | val_acc=0.9850 | fro=20.0000 | nuc=303.9877
+[Epoch 012] train_ce=0.0123 | train_acc=0.9961 | val_loss=0.0488 | val_acc=0.9870 | fro=20.0000 | nuc=298.9579
+[Epoch 013] train_ce=0.0102 | train_acc=0.9967 | val_loss=0.0519 | val_acc=0.9837 | fro=20.0000 | nuc=294.7496
+[Epoch 014] train_ce=0.0107 | train_acc=0.9965 | val_loss=0.0458 | val_acc=0.9853 | fro=20.0000 | nuc=290.2208
+[Epoch 015] train_ce=0.0118 | train_acc=0.9959 | val_loss=0.0464 | val_acc=0.9863 | fro=20.0000 | nuc=285.3339
+[Epoch 016] train_ce=0.0098 | train_acc=0.9968 | val_loss=0.0526 | val_acc=0.9800 | fro=20.0000 | nuc=281.2778
+[Epoch 017] train_ce=0.0093 | train_acc=0.9970 | val_loss=0.0477 | val_acc=0.9863 | fro=20.0000 | nuc=278.4295
+Early stopping triggered at epoch 17. Best val_loss=0.042717 at epoch 7.
+Done. fro_norm=20.0 | best_val_loss=0.042717 | best_epoch=7
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=40.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_40
+[Target Frobenius norm] 40.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_40_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.1786 | train_acc=0.9308 | val_loss=0.0932 | val_acc=0.9693 | fro=40.0000 | nuc=742.4982
+[Epoch 002] train_ce=0.0734 | train_acc=0.9748 | val_loss=0.0644 | val_acc=0.9780 | fro=40.0000 | nuc=740.1971
+[Epoch 003] train_ce=0.0515 | train_acc=0.9825 | val_loss=0.0562 | val_acc=0.9797 | fro=40.0000 | nuc=737.8510
+[Epoch 004] train_ce=0.0393 | train_acc=0.9866 | val_loss=0.0532 | val_acc=0.9800 | fro=40.0000 | nuc=735.3233
+[Epoch 005] train_ce=0.0305 | train_acc=0.9899 | val_loss=0.0526 | val_acc=0.9797 | fro=40.0000 | nuc=732.9203
+[Epoch 006] train_ce=0.0222 | train_acc=0.9932 | val_loss=0.0505 | val_acc=0.9803 | fro=40.0000 | nuc=730.5573
+[Epoch 007] train_ce=0.0184 | train_acc=0.9944 | val_loss=0.0482 | val_acc=0.9837 | fro=40.0000 | nuc=728.1368
+[Epoch 008] train_ce=0.0139 | train_acc=0.9958 | val_loss=0.0638 | val_acc=0.9787 | fro=40.0000 | nuc=725.9894
+[Epoch 009] train_ce=0.0105 | train_acc=0.9972 | val_loss=0.0437 | val_acc=0.9853 | fro=40.0000 | nuc=723.9639
+[Epoch 010] train_ce=0.0074 | train_acc=0.9981 | val_loss=0.0542 | val_acc=0.9850 | fro=40.0000 | nuc=722.3057
+[Epoch 011] train_ce=0.0064 | train_acc=0.9986 | val_loss=0.0523 | val_acc=0.9813 | fro=40.0000 | nuc=720.3449
+[Epoch 012] train_ce=0.0072 | train_acc=0.9978 | val_loss=0.0583 | val_acc=0.9833 | fro=40.0000 | nuc=717.7070
+[Epoch 013] train_ce=0.0078 | train_acc=0.9976 | val_loss=0.0561 | val_acc=0.9840 | fro=40.0000 | nuc=714.8303
+[Epoch 014] train_ce=0.0092 | train_acc=0.9971 | val_loss=0.0577 | val_acc=0.9837 | fro=40.0000 | nuc=711.3488
+[Epoch 015] train_ce=0.0077 | train_acc=0.9975 | val_loss=0.0696 | val_acc=0.9803 | fro=40.0000 | nuc=708.3576
+[Epoch 016] train_ce=0.0046 | train_acc=0.9988 | val_loss=0.0598 | val_acc=0.9830 | fro=40.0000 | nuc=706.6288
+[Epoch 017] train_ce=0.0031 | train_acc=0.9993 | val_loss=0.0669 | val_acc=0.9833 | fro=40.0000 | nuc=705.3122
+[Epoch 018] train_ce=0.0028 | train_acc=0.9994 | val_loss=0.0654 | val_acc=0.9813 | fro=40.0000 | nuc=703.9974
+[Epoch 019] train_ce=0.0015 | train_acc=0.9998 | val_loss=0.0518 | val_acc=0.9867 | fro=40.0000 | nuc=703.0330
+Early stopping triggered at epoch 19. Best val_loss=0.043744 at epoch 9.
+Done. fro_norm=40.0 | best_val_loss=0.043744 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=60.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_60
+[Target Frobenius norm] 60.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_60_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.1927 | train_acc=0.9250 | val_loss=0.0987 | val_acc=0.9670 | fro=60.0000 | nuc=1116.2712
+[Epoch 002] train_ce=0.0779 | train_acc=0.9736 | val_loss=0.0670 | val_acc=0.9763 | fro=60.0000 | nuc=1115.2817
+[Epoch 003] train_ce=0.0545 | train_acc=0.9813 | val_loss=0.0606 | val_acc=0.9793 | fro=60.0000 | nuc=1114.1920
+[Epoch 004] train_ce=0.0412 | train_acc=0.9860 | val_loss=0.0575 | val_acc=0.9780 | fro=60.0000 | nuc=1113.0967
+[Epoch 005] train_ce=0.0316 | train_acc=0.9897 | val_loss=0.0566 | val_acc=0.9783 | fro=60.0000 | nuc=1111.9806
+[Epoch 006] train_ce=0.0242 | train_acc=0.9921 | val_loss=0.0524 | val_acc=0.9800 | fro=60.0000 | nuc=1110.8342
+[Epoch 007] train_ce=0.0181 | train_acc=0.9943 | val_loss=0.0526 | val_acc=0.9820 | fro=60.0000 | nuc=1109.7783
+[Epoch 008] train_ce=0.0138 | train_acc=0.9957 | val_loss=0.0618 | val_acc=0.9777 | fro=60.0000 | nuc=1108.7876
+[Epoch 009] train_ce=0.0102 | train_acc=0.9971 | val_loss=0.0466 | val_acc=0.9830 | fro=60.0000 | nuc=1107.8641
+[Epoch 010] train_ce=0.0070 | train_acc=0.9983 | val_loss=0.0578 | val_acc=0.9817 | fro=60.0000 | nuc=1107.0400
+[Epoch 011] train_ce=0.0053 | train_acc=0.9990 | val_loss=0.0556 | val_acc=0.9813 | fro=60.0000 | nuc=1106.2190
+[Epoch 012] train_ce=0.0041 | train_acc=0.9993 | val_loss=0.0608 | val_acc=0.9833 | fro=60.0000 | nuc=1105.6224
+[Epoch 013] train_ce=0.0043 | train_acc=0.9991 | val_loss=0.0607 | val_acc=0.9827 | fro=60.0000 | nuc=1104.6470
+[Epoch 014] train_ce=0.0084 | train_acc=0.9972 | val_loss=0.0756 | val_acc=0.9790 | fro=60.0000 | nuc=1102.5239
+[Epoch 015] train_ce=0.0094 | train_acc=0.9968 | val_loss=0.0664 | val_acc=0.9823 | fro=60.0000 | nuc=1100.5535
+[Epoch 016] train_ce=0.0051 | train_acc=0.9986 | val_loss=0.0514 | val_acc=0.9840 | fro=60.0000 | nuc=1099.6029
+[Epoch 017] train_ce=0.0017 | train_acc=0.9998 | val_loss=0.0561 | val_acc=0.9830 | fro=60.0000 | nuc=1099.2032
+[Epoch 018] train_ce=0.0018 | train_acc=0.9996 | val_loss=0.0643 | val_acc=0.9820 | fro=60.0000 | nuc=1098.7798
+[Epoch 019] train_ce=0.0013 | train_acc=0.9998 | val_loss=0.0579 | val_acc=0.9850 | fro=60.0000 | nuc=1098.3691
+Early stopping triggered at epoch 19. Best val_loss=0.046552 at epoch 9.
+Done. fro_norm=60.0 | best_val_loss=0.046552 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=80.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_80
+[Target Frobenius norm] 80.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_80_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2067 | train_acc=0.9196 | val_loss=0.1045 | val_acc=0.9660 | fro=80.0000 | nuc=1489.1545
+[Epoch 002] train_ce=0.0833 | train_acc=0.9714 | val_loss=0.0709 | val_acc=0.9733 | fro=80.0000 | nuc=1488.6331
+[Epoch 003] train_ce=0.0587 | train_acc=0.9802 | val_loss=0.0644 | val_acc=0.9777 | fro=80.0000 | nuc=1488.0654
+[Epoch 004] train_ce=0.0444 | train_acc=0.9848 | val_loss=0.0602 | val_acc=0.9767 | fro=80.0000 | nuc=1487.4677
+[Epoch 005] train_ce=0.0345 | train_acc=0.9889 | val_loss=0.0601 | val_acc=0.9780 | fro=80.0000 | nuc=1486.8458
+[Epoch 006] train_ce=0.0263 | train_acc=0.9911 | val_loss=0.0547 | val_acc=0.9800 | fro=80.0000 | nuc=1486.1716
+[Epoch 007] train_ce=0.0199 | train_acc=0.9936 | val_loss=0.0544 | val_acc=0.9817 | fro=80.0000 | nuc=1485.6229
+[Epoch 008] train_ce=0.0152 | train_acc=0.9953 | val_loss=0.0707 | val_acc=0.9770 | fro=80.0000 | nuc=1485.1130
+[Epoch 009] train_ce=0.0109 | train_acc=0.9971 | val_loss=0.0528 | val_acc=0.9820 | fro=80.0000 | nuc=1484.5972
+[Epoch 010] train_ce=0.0073 | train_acc=0.9984 | val_loss=0.0641 | val_acc=0.9793 | fro=80.0000 | nuc=1484.1414
+[Epoch 011] train_ce=0.0067 | train_acc=0.9986 | val_loss=0.0589 | val_acc=0.9817 | fro=80.0000 | nuc=1483.5565
+[Epoch 012] train_ce=0.0050 | train_acc=0.9991 | val_loss=0.0779 | val_acc=0.9787 | fro=80.0000 | nuc=1483.1422
+[Epoch 013] train_ce=0.0053 | train_acc=0.9988 | val_loss=0.0648 | val_acc=0.9817 | fro=80.0000 | nuc=1482.5452
+[Epoch 014] train_ce=0.0046 | train_acc=0.9991 | val_loss=0.0666 | val_acc=0.9813 | fro=80.0000 | nuc=1482.0308
+[Epoch 015] train_ce=0.0021 | train_acc=0.9998 | val_loss=0.0644 | val_acc=0.9830 | fro=80.0000 | nuc=1481.7595
+[Epoch 016] train_ce=0.0031 | train_acc=0.9992 | val_loss=0.0649 | val_acc=0.9823 | fro=80.0000 | nuc=1481.2006
+[Epoch 017] train_ce=0.0020 | train_acc=0.9997 | val_loss=0.0730 | val_acc=0.9817 | fro=80.0000 | nuc=1480.8616
+[Epoch 018] train_ce=0.0037 | train_acc=0.9990 | val_loss=0.0702 | val_acc=0.9843 | fro=80.0000 | nuc=1479.8633
+[Epoch 019] train_ce=0.0145 | train_acc=0.9950 | val_loss=0.0970 | val_acc=0.9750 | fro=80.0000 | nuc=1477.0128
+Early stopping triggered at epoch 19. Best val_loss=0.052785 at epoch 9.
+Done. fro_norm=80.0 | best_val_loss=0.052785 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=100.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_100
+[Target Frobenius norm] 100.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_100_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2207 | train_acc=0.9148 | val_loss=0.1085 | val_acc=0.9637 | fro=100.0000 | nuc=1861.7682
+[Epoch 002] train_ce=0.0875 | train_acc=0.9696 | val_loss=0.0749 | val_acc=0.9717 | fro=100.0000 | nuc=1861.4579
+[Epoch 003] train_ce=0.0623 | train_acc=0.9789 | val_loss=0.0673 | val_acc=0.9743 | fro=100.0000 | nuc=1861.0974
+[Epoch 004] train_ce=0.0476 | train_acc=0.9838 | val_loss=0.0617 | val_acc=0.9757 | fro=100.0000 | nuc=1860.7405
+[Epoch 005] train_ce=0.0375 | train_acc=0.9878 | val_loss=0.0591 | val_acc=0.9800 | fro=100.0000 | nuc=1860.3419
+[Epoch 006] train_ce=0.0285 | train_acc=0.9907 | val_loss=0.0573 | val_acc=0.9797 | fro=100.0000 | nuc=1859.9730
+[Epoch 007] train_ce=0.0215 | train_acc=0.9932 | val_loss=0.0578 | val_acc=0.9797 | fro=100.0000 | nuc=1859.6444
+[Epoch 008] train_ce=0.0163 | train_acc=0.9951 | val_loss=0.0669 | val_acc=0.9773 | fro=100.0000 | nuc=1859.2914
+[Epoch 009] train_ce=0.0124 | train_acc=0.9964 | val_loss=0.0541 | val_acc=0.9823 | fro=100.0000 | nuc=1859.0126
+[Epoch 010] train_ce=0.0090 | train_acc=0.9979 | val_loss=0.0646 | val_acc=0.9810 | fro=100.0000 | nuc=1858.6699
+[Epoch 011] train_ce=0.0070 | train_acc=0.9986 | val_loss=0.0563 | val_acc=0.9820 | fro=100.0000 | nuc=1858.3420
+[Epoch 012] train_ce=0.0049 | train_acc=0.9991 | val_loss=0.0673 | val_acc=0.9803 | fro=100.0000 | nuc=1858.0881
+[Epoch 013] train_ce=0.0043 | train_acc=0.9993 | val_loss=0.0579 | val_acc=0.9833 | fro=100.0000 | nuc=1857.7748
+[Epoch 014] train_ce=0.0034 | train_acc=0.9995 | val_loss=0.0610 | val_acc=0.9827 | fro=100.0000 | nuc=1857.5410
+[Epoch 015] train_ce=0.0041 | train_acc=0.9991 | val_loss=0.0677 | val_acc=0.9803 | fro=100.0000 | nuc=1857.1135
+[Epoch 016] train_ce=0.0044 | train_acc=0.9989 | val_loss=0.0642 | val_acc=0.9810 | fro=100.0000 | nuc=1856.6763
+[Epoch 017] train_ce=0.0043 | train_acc=0.9988 | val_loss=0.0741 | val_acc=0.9810 | fro=100.0000 | nuc=1856.2649
+[Epoch 018] train_ce=0.0087 | train_acc=0.9968 | val_loss=0.0814 | val_acc=0.9790 | fro=100.0000 | nuc=1855.0093
+[Epoch 019] train_ce=0.0060 | train_acc=0.9982 | val_loss=0.0743 | val_acc=0.9803 | fro=100.0000 | nuc=1854.3871
+Early stopping triggered at epoch 19. Best val_loss=0.054073 at epoch 9.
+Done. fro_norm=100.0 | best_val_loss=0.054073 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=120.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_120
+[Target Frobenius norm] 120.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_120_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2358 | train_acc=0.9100 | val_loss=0.1138 | val_acc=0.9613 | fro=120.0000 | nuc=2234.2542
+[Epoch 002] train_ce=0.0923 | train_acc=0.9674 | val_loss=0.0783 | val_acc=0.9707 | fro=120.0000 | nuc=2234.0427
+[Epoch 003] train_ce=0.0661 | train_acc=0.9770 | val_loss=0.0706 | val_acc=0.9740 | fro=120.0000 | nuc=2233.8101
+[Epoch 004] train_ce=0.0507 | train_acc=0.9831 | val_loss=0.0628 | val_acc=0.9747 | fro=120.0000 | nuc=2233.5823
+[Epoch 005] train_ce=0.0405 | train_acc=0.9866 | val_loss=0.0632 | val_acc=0.9777 | fro=120.0000 | nuc=2233.3406
+[Epoch 006] train_ce=0.0311 | train_acc=0.9898 | val_loss=0.0605 | val_acc=0.9767 | fro=120.0000 | nuc=2233.1323
+[Epoch 007] train_ce=0.0232 | train_acc=0.9929 | val_loss=0.0583 | val_acc=0.9787 | fro=120.0000 | nuc=2232.9072
+[Epoch 008] train_ce=0.0187 | train_acc=0.9942 | val_loss=0.0692 | val_acc=0.9767 | fro=120.0000 | nuc=2232.6611
+[Epoch 009] train_ce=0.0137 | train_acc=0.9963 | val_loss=0.0542 | val_acc=0.9817 | fro=120.0000 | nuc=2232.4470
+[Epoch 010] train_ce=0.0097 | train_acc=0.9977 | val_loss=0.0671 | val_acc=0.9800 | fro=120.0000 | nuc=2232.2539
+[Epoch 011] train_ce=0.0078 | train_acc=0.9982 | val_loss=0.0628 | val_acc=0.9817 | fro=120.0000 | nuc=2232.0251
+[Epoch 012] train_ce=0.0057 | train_acc=0.9990 | val_loss=0.0694 | val_acc=0.9763 | fro=120.0000 | nuc=2231.8374
+[Epoch 013] train_ce=0.0043 | train_acc=0.9993 | val_loss=0.0644 | val_acc=0.9823 | fro=120.0000 | nuc=2231.6577
+[Epoch 014] train_ce=0.0044 | train_acc=0.9992 | val_loss=0.0646 | val_acc=0.9803 | fro=120.0000 | nuc=2231.4155
+[Epoch 015] train_ce=0.0060 | train_acc=0.9985 | val_loss=0.0749 | val_acc=0.9817 | fro=120.0000 | nuc=2231.1003
+[Epoch 016] train_ce=0.0086 | train_acc=0.9971 | val_loss=0.0881 | val_acc=0.9803 | fro=120.0000 | nuc=2230.6077
+[Epoch 017] train_ce=0.0042 | train_acc=0.9988 | val_loss=0.0732 | val_acc=0.9797 | fro=120.0000 | nuc=2230.4111
+[Epoch 018] train_ce=0.0027 | train_acc=0.9994 | val_loss=0.0710 | val_acc=0.9820 | fro=120.0000 | nuc=2230.2417
+[Epoch 019] train_ce=0.0013 | train_acc=0.9999 | val_loss=0.0666 | val_acc=0.9837 | fro=120.0000 | nuc=2230.1284
+Early stopping triggered at epoch 19. Best val_loss=0.054169 at epoch 9.
+Done. fro_norm=120.0 | best_val_loss=0.054169 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=140.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_140
+[Target Frobenius norm] 140.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_140_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2519 | train_acc=0.9056 | val_loss=0.1192 | val_acc=0.9600 | fro=140.0000 | nuc=2606.6846
+[Epoch 002] train_ce=0.0975 | train_acc=0.9659 | val_loss=0.0832 | val_acc=0.9690 | fro=140.0000 | nuc=2606.5549
+[Epoch 003] train_ce=0.0702 | train_acc=0.9756 | val_loss=0.0738 | val_acc=0.9717 | fro=140.0000 | nuc=2606.3860
+[Epoch 004] train_ce=0.0545 | train_acc=0.9811 | val_loss=0.0657 | val_acc=0.9740 | fro=140.0000 | nuc=2606.2588
+[Epoch 005] train_ce=0.0436 | train_acc=0.9853 | val_loss=0.0635 | val_acc=0.9760 | fro=140.0000 | nuc=2606.1042
+[Epoch 006] train_ce=0.0343 | train_acc=0.9887 | val_loss=0.0623 | val_acc=0.9770 | fro=140.0000 | nuc=2605.9541
+[Epoch 007] train_ce=0.0263 | train_acc=0.9917 | val_loss=0.0582 | val_acc=0.9760 | fro=140.0000 | nuc=2605.8105
+[Epoch 008] train_ce=0.0210 | train_acc=0.9935 | val_loss=0.0677 | val_acc=0.9757 | fro=140.0000 | nuc=2605.6707
+[Epoch 009] train_ce=0.0156 | train_acc=0.9955 | val_loss=0.0562 | val_acc=0.9793 | fro=140.0000 | nuc=2605.5452
+[Epoch 010] train_ce=0.0112 | train_acc=0.9968 | val_loss=0.0674 | val_acc=0.9780 | fro=140.0000 | nuc=2605.4438
+[Epoch 011] train_ce=0.0086 | train_acc=0.9981 | val_loss=0.0639 | val_acc=0.9810 | fro=140.0000 | nuc=2605.2917
+[Epoch 012] train_ce=0.0067 | train_acc=0.9987 | val_loss=0.0695 | val_acc=0.9767 | fro=140.0000 | nuc=2605.2065
+[Epoch 013] train_ce=0.0053 | train_acc=0.9991 | val_loss=0.0589 | val_acc=0.9817 | fro=140.0000 | nuc=2605.0977
+[Epoch 014] train_ce=0.0038 | train_acc=0.9995 | val_loss=0.0654 | val_acc=0.9797 | fro=140.0000 | nuc=2605.0242
+[Epoch 015] train_ce=0.0031 | train_acc=0.9995 | val_loss=0.0699 | val_acc=0.9810 | fro=140.0000 | nuc=2604.9546
+[Epoch 016] train_ce=0.0048 | train_acc=0.9988 | val_loss=0.0732 | val_acc=0.9797 | fro=140.0000 | nuc=2604.6775
+[Epoch 017] train_ce=0.0045 | train_acc=0.9988 | val_loss=0.0730 | val_acc=0.9793 | fro=140.0000 | nuc=2604.5063
+[Epoch 018] train_ce=0.0020 | train_acc=0.9998 | val_loss=0.0750 | val_acc=0.9803 | fro=140.0000 | nuc=2604.4548
+[Epoch 019] train_ce=0.0010 | train_acc=1.0000 | val_loss=0.0668 | val_acc=0.9833 | fro=140.0000 | nuc=2604.4082
+Early stopping triggered at epoch 19. Best val_loss=0.056159 at epoch 9.
+Done. fro_norm=140.0 | best_val_loss=0.056159 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=160.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_160
+[Target Frobenius norm] 160.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_160_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2688 | train_acc=0.9010 | val_loss=0.1243 | val_acc=0.9580 | fro=160.0000 | nuc=2979.1074
+[Epoch 002] train_ce=0.1027 | train_acc=0.9641 | val_loss=0.0867 | val_acc=0.9687 | fro=160.0000 | nuc=2979.0396
+[Epoch 003] train_ce=0.0745 | train_acc=0.9742 | val_loss=0.0772 | val_acc=0.9710 | fro=160.0000 | nuc=2978.9111
+[Epoch 004] train_ce=0.0584 | train_acc=0.9800 | val_loss=0.0686 | val_acc=0.9733 | fro=160.0000 | nuc=2978.8550
+[Epoch 005] train_ce=0.0471 | train_acc=0.9838 | val_loss=0.0653 | val_acc=0.9760 | fro=160.0000 | nuc=2978.7449
+[Epoch 006] train_ce=0.0376 | train_acc=0.9876 | val_loss=0.0644 | val_acc=0.9760 | fro=160.0000 | nuc=2978.6455
+[Epoch 007] train_ce=0.0287 | train_acc=0.9910 | val_loss=0.0596 | val_acc=0.9773 | fro=160.0000 | nuc=2978.5740
+[Epoch 008] train_ce=0.0238 | train_acc=0.9923 | val_loss=0.0719 | val_acc=0.9727 | fro=160.0000 | nuc=2978.5132
+[Epoch 009] train_ce=0.0176 | train_acc=0.9950 | val_loss=0.0591 | val_acc=0.9783 | fro=160.0000 | nuc=2978.4482
+[Epoch 010] train_ce=0.0126 | train_acc=0.9966 | val_loss=0.0645 | val_acc=0.9770 | fro=160.0000 | nuc=2978.4136
+[Epoch 011] train_ce=0.0098 | train_acc=0.9977 | val_loss=0.0664 | val_acc=0.9807 | fro=160.0000 | nuc=2978.3071
+[Epoch 012] train_ce=0.0079 | train_acc=0.9984 | val_loss=0.0700 | val_acc=0.9770 | fro=160.0000 | nuc=2978.1917
+[Epoch 013] train_ce=0.0061 | train_acc=0.9988 | val_loss=0.0618 | val_acc=0.9813 | fro=160.0000 | nuc=2978.1233
+[Epoch 014] train_ce=0.0045 | train_acc=0.9991 | val_loss=0.0669 | val_acc=0.9800 | fro=160.0000 | nuc=2978.0522
+[Epoch 015] train_ce=0.0045 | train_acc=0.9989 | val_loss=0.0687 | val_acc=0.9787 | fro=160.0000 | nuc=2977.9983
+[Epoch 016] train_ce=0.0050 | train_acc=0.9989 | val_loss=0.0672 | val_acc=0.9833 | fro=160.0000 | nuc=2977.8599
+[Epoch 017] train_ce=0.0022 | train_acc=0.9997 | val_loss=0.0698 | val_acc=0.9803 | fro=160.0000 | nuc=2977.8442
+[Epoch 018] train_ce=0.0012 | train_acc=1.0000 | val_loss=0.0722 | val_acc=0.9797 | fro=160.0000 | nuc=2977.8276
+[Epoch 019] train_ce=0.0009 | train_acc=1.0000 | val_loss=0.0649 | val_acc=0.9813 | fro=160.0000 | nuc=2977.7942
+Early stopping triggered at epoch 19. Best val_loss=0.059066 at epoch 9.
+Done. fro_norm=160.0 | best_val_loss=0.059066 | best_epoch=9
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=180.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_180
+[Target Frobenius norm] 180.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_180_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.2866 | train_acc=0.8969 | val_loss=0.1293 | val_acc=0.9567 | fro=180.0000 | nuc=3351.5498
+[Epoch 002] train_ce=0.1080 | train_acc=0.9619 | val_loss=0.0918 | val_acc=0.9667 | fro=180.0000 | nuc=3351.4961
+[Epoch 003] train_ce=0.0789 | train_acc=0.9727 | val_loss=0.0817 | val_acc=0.9710 | fro=180.0000 | nuc=3351.3887
+[Epoch 004] train_ce=0.0624 | train_acc=0.9781 | val_loss=0.0714 | val_acc=0.9713 | fro=180.0000 | nuc=3351.3640
+[Epoch 005] train_ce=0.0512 | train_acc=0.9827 | val_loss=0.0678 | val_acc=0.9753 | fro=180.0000 | nuc=3351.2705
+[Epoch 006] train_ce=0.0410 | train_acc=0.9858 | val_loss=0.0662 | val_acc=0.9747 | fro=180.0000 | nuc=3351.2197
+[Epoch 007] train_ce=0.0318 | train_acc=0.9896 | val_loss=0.0606 | val_acc=0.9770 | fro=180.0000 | nuc=3351.1729
+[Epoch 008] train_ce=0.0260 | train_acc=0.9914 | val_loss=0.0720 | val_acc=0.9743 | fro=180.0000 | nuc=3351.1597
+[Epoch 009] train_ce=0.0198 | train_acc=0.9941 | val_loss=0.0622 | val_acc=0.9790 | fro=180.0000 | nuc=3351.1262
+[Epoch 010] train_ce=0.0144 | train_acc=0.9961 | val_loss=0.0642 | val_acc=0.9780 | fro=180.0000 | nuc=3351.1160
+[Epoch 011] train_ce=0.0112 | train_acc=0.9970 | val_loss=0.0665 | val_acc=0.9797 | fro=180.0000 | nuc=3351.0413
+[Epoch 012] train_ce=0.0093 | train_acc=0.9977 | val_loss=0.0763 | val_acc=0.9737 | fro=180.0000 | nuc=3350.9585
+[Epoch 013] train_ce=0.0068 | train_acc=0.9987 | val_loss=0.0645 | val_acc=0.9803 | fro=180.0000 | nuc=3350.9150
+[Epoch 014] train_ce=0.0055 | train_acc=0.9988 | val_loss=0.0690 | val_acc=0.9773 | fro=180.0000 | nuc=3350.8557
+[Epoch 015] train_ce=0.0050 | train_acc=0.9989 | val_loss=0.0723 | val_acc=0.9773 | fro=180.0000 | nuc=3350.7942
+[Epoch 016] train_ce=0.0045 | train_acc=0.9990 | val_loss=0.0724 | val_acc=0.9780 | fro=180.0000 | nuc=3350.7104
+[Epoch 017] train_ce=0.0026 | train_acc=0.9996 | val_loss=0.0755 | val_acc=0.9790 | fro=180.0000 | nuc=3350.7087
+Early stopping triggered at epoch 17. Best val_loss=0.060569 at epoch 7.
+Done. fro_norm=180.0 | best_val_loss=0.060569 | best_epoch=7
+
+================================================================================
+Training fixed-Frobenius model | fro_norm=200.00000000, seed=0
+================================================================================
+Using device: cuda
+[Experiment] model_one_layer_FC_fro_200
+[Target Frobenius norm] 200.000000
+[Run dir] outputs/compressibility_adv_robustness/model_one_layer_FC_fro_200_seed_0
+[Early stopping patience] 10
+[Epoch 001] train_ce=0.3055 | train_acc=0.8927 | val_loss=0.1350 | val_acc=0.9533 | fro=200.0000 | nuc=3723.9705
+[Epoch 002] train_ce=0.1135 | train_acc=0.9598 | val_loss=0.0956 | val_acc=0.9647 | fro=200.0000 | nuc=3723.9133
+[Epoch 003] train_ce=0.0833 | train_acc=0.9711 | val_loss=0.0860 | val_acc=0.9703 | fro=200.0000 | nuc=3723.8569
+[Epoch 004] train_ce=0.0662 | train_acc=0.9767 | val_loss=0.0754 | val_acc=0.9707 | fro=200.0000 | nuc=3723.8496
+[Epoch 005] train_ce=0.0545 | train_acc=0.9813 | val_loss=0.0714 | val_acc=0.9750 | fro=200.0000 | nuc=3723.7368
+[Epoch 006] train_ce=0.0439 | train_acc=0.9851 | val_loss=0.0692 | val_acc=0.9733 | fro=200.0000 | nuc=3723.6919
+[Epoch 007] train_ce=0.0347 | train_acc=0.9886 | val_loss=0.0620 | val_acc=0.9777 | fro=200.0000 | nuc=3723.6523
+[Epoch 008] train_ce=0.0287 | train_acc=0.9905 | val_loss=0.0733 | val_acc=0.9733 | fro=200.0000 | nuc=3723.6306
+[Epoch 009] train_ce=0.0224 | train_acc=0.9927 | val_loss=0.0605 | val_acc=0.9793 | fro=200.0000 | nuc=3723.6443
+[Epoch 010] train_ce=0.0162 | train_acc=0.9954 | val_loss=0.0653 | val_acc=0.9763 | fro=200.0000 | nuc=3723.6340
+[Epoch 011] train_ce=0.0126 | train_acc=0.9966 | val_loss=0.0684 | val_acc=0.9783 | fro=200.0000 | nuc=3723.6094
+[Epoch 012] train_ce=0.0106 | train_acc=0.9974 | val_loss=0.0744 | val_acc=0.9740 | fro=200.0000 | nuc=3723.5845
+[Epoch 013] train_ce=0.0077 | train_acc=0.9983 | val_loss=0.0641 | val_acc=0.9800 | fro=200.0000 | nuc=3723.5479
+[Epoch 014] train_ce=0.0059 | train_acc=0.9989 | val_loss=0.0682 | val_acc=0.9780 | fro=200.0000 | nuc=3723.5491
+[Epoch 015] train_ce=0.0050 | train_acc=0.9989 | val_loss=0.0729 | val_acc=0.9780 | fro=200.0000 | nuc=3723.4851
+[Epoch 016] train_ce=0.0049 | train_acc=0.9988 | val_loss=0.0727 | val_acc=0.9793 | fro=200.0000 | nuc=3723.4458
+[Epoch 017] train_ce=0.0032 | train_acc=0.9994 | val_loss=0.0752 | val_acc=0.9767 | fro=200.0000 | nuc=3723.4404
+[Epoch 018] train_ce=0.0016 | train_acc=1.0000 | val_loss=0.0749 | val_acc=0.9783 | fro=200.0000 | nuc=3723.4177
+[Epoch 019] train_ce=0.0012 | train_acc=1.0000 | val_loss=0.0692 | val_acc=0.9810 | fro=200.0000 | nuc=3723.4121
+Early stopping triggered at epoch 19. Best val_loss=0.060541 at epoch 9.
+Done. fro_norm=200.0 | best_val_loss=0.060541 | best_epoch=9
+End time: Fri Mar 13 09:11:27 PM CET 2026
+Job finished

@@ -1,0 +1,37 @@
+Start time: Sat Mar 14 04:46:59 PM CET 2026
+Host: albatros.polytechnique.fr
+Sat Mar 14 16:46:59 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.126.18             Driver Version: 580.126.18     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               Off |   00000000:01:00.0 Off |                  Off |
+| 65%   80C    P2            144W /  230W |    9270MiB /  24564MiB |     25%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A         1639117      G   /usr/libexec/Xorg                        94MiB |
+|    0   N/A  N/A         1639144      G   /usr/bin/gnome-shell                      8MiB |
+|    0   N/A  N/A         2302813      C   ...ny_Reasoner/.venv/bin/python3       9124MiB |
++-----------------------------------------------------------------------------------------+
+cuda available: True
+device count: 1
+device name: NVIDIA RTX A5000
+Using device: cuda
+Files already downloaded and verified
+Files already downloaded and verified
+Files already downloaded and verified
+
+====================================================================================================
+Training model for label-noise alpha = 0.000
+====================================================================================================
+[Epoch 001/100] loss=1.4303 | train_acc(noisy-online)=0.4778 | lr=0.09998
+[Epoch 002/100] loss=0.9469 | train_acc(noisy-online)=0.6617 | lr=0.09990

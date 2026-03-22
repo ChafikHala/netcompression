@@ -117,6 +117,20 @@ def make_ratio_grid(start: float, end: float, step: float) -> list[float]:
         x += step
     return vals
 
+def _apply_elegant_style(ax):
+    """Shared style: fine grey grid, clean spines, high-quality look."""
+    ax.set_axisbelow(True)
+    ax.grid(which="major", color="#CCCCCC", linewidth=0.6, linestyle="-")
+    ax.grid(which="minor", color="#E8E8E8", linewidth=0.3, linestyle="-")
+    ax.minorticks_on()
+    for spine in ["top", "right"]:
+        ax.spines[spine].set_visible(False)
+    for spine in ["left", "bottom"]:
+        ax.spines[spine].set_linewidth(0.7)
+        ax.spines[spine].set_color("#888888")
+    ax.tick_params(axis="both", labelsize=11, length=3, width=0.7)
+    ax.figure.patch.set_facecolor("white")
+    ax.set_facecolor("white")
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -201,38 +215,53 @@ def main() -> None:
 
     save_json(save_dir / "mnist_one_layer_neuron_pruning_raw.json", raw_results)
     save_json(save_dir / "mnist_one_layer_neuron_pruning_aggregated.json", aggregated)
+    PALETTE = ["#2E86AB", "#E84855", "#3BB273", "#F18F01",
+               "#9B59B6", "#E67E22", "#1ABC9C", "#E74C3C"]
 
-    plt.figure(figsize=(8, 6))
-    for alpha in args.alphas:
+    fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
+
+    for i, alpha in enumerate(args.alphas):
         stats = aggregated[str(alpha)]
         xs = np.array(stats["pruning_ratios"], dtype=float)
         ys = np.array(stats["test_accuracy_mean"], dtype=float)
-        yerr = np.array(stats["test_accuracy_std"], dtype=float)
+        yerr = np.array(stats["test_accuracy_std"], dtype=float) * 0.1
 
-        plt.errorbar(
-            xs,
-            ys,
-            yerr= 0.1*yerr,
+        color = PALETTE[i % len(PALETTE)]
+
+        ax.fill_between(xs, ys - yerr, ys + yerr,
+                        color=color, alpha=0.12, linewidth=0)
+        ax.errorbar(
+            xs, ys,
+            yerr=yerr,
+            color=color,
             marker="o",
-            linewidth=2,
-            capsize=3,
+            markersize=5,
+            markerfacecolor="white",
+            markeredgecolor=color,
+            markeredgewidth=1.5,
+            linewidth=1.4,
+            elinewidth=0.8,
+            capsize=2,
+            capthick=0.8,
             label=rf"$\alpha = {alpha}$",
+            zorder=3,
         )
 
-    plt.xlabel("Pruning Ratio", fontsize=20)
-    plt.ylabel("Test Accuracy", fontsize=20)
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
-    plt.grid(True, alpha=0.3)
-    plt.legend(fontsize=18)
+    ax.set_xlabel("Pruning Ratio", fontsize=15, labelpad=8)
+    ax.set_ylabel("Test Accuracy", fontsize=15, labelpad=10)
+    ax.legend(fontsize=15, frameon=True, framealpha=0.95,
+              edgecolor="#DDDDDD", loc="best",
+              handlelength=2, borderpad=0.9, labelspacing=0.6)
+
+    _apply_elegant_style(ax)
     plt.tight_layout()
-    plt.savefig(save_dir / "mnist_one_layer_neuron_pruning_accuracy_mean_std.png", dpi=200, bbox_inches="tight")
+    plt.savefig(save_dir / "mnist_one_layer_neuron_pruning_accuracy_mean_std.png",
+                dpi=180, bbox_inches="tight")
     plt.close()
 
     print(f"\nSaved raw results to: {save_dir / 'mnist_one_layer_neuron_pruning_raw.json'}")
     print(f"Saved aggregated results to: {save_dir / 'mnist_one_layer_neuron_pruning_aggregated.json'}")
     print(f"Saved figure to: {save_dir / 'mnist_one_layer_neuron_pruning_accuracy_mean_std.png'}")
-
 
 if __name__ == "__main__":
     main()

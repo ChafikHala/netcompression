@@ -1,0 +1,50 @@
+experiment:
+  name: "placeholder_will_be_overridden"
+  output_dir: "outputs"
+  seed: 42
+  device: "auto"
+
+dataset:
+  name: "cifar10"
+  root: "./data"
+  num_classes: 10
+  binary: false
+  val_fraction: 0.05
+
+  augmentation:
+    random_crop: 4
+    horizontal_flip: true
+    normalize: true
+
+  noise:
+    label_noise_fraction: 0.0
+
+dataloader:
+  batch_size: 128
+  num_workers: 4
+  pin_memory: true
+
+optimizer:
+  type: "adamw"
+  lr: 0.001
+  weight_decay: 0.01
+
+training:
+  epochs: 100
+  criterion: "cross_entropy"
+  label_smoothing: 0.0
+  early_stopping_patience: 10
+
+paper:
+  name: "on_the_interaction_between_compressibility_and_adversarial_robustness"
+  experiment: "cifar10_wrn16_2"
+
+  compressibility:
+    type: "neuron"   # overridden by argparse: neuron or spectral
+
+  regularization:
+    type: "scale_invariant_group_lasso"   # only for neuron compressibility
+    beta: 0.0
+
+  factorization:
+    rank: 32         # only for spectral compressibility

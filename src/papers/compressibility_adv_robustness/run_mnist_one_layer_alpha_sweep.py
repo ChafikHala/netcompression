@@ -18,6 +18,7 @@ def main() -> None:
     args = parser.parse_args()
 
     base_cfg = load_config(args.config)
+    
     alphas = np.geomspace(args.alpha_min, args.alpha_max, args.n_alphas)
 
     print("Alphas:", [float(a) for a in alphas])
