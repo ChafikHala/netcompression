@@ -25,7 +25,7 @@ The codebase supports CIFAR-10 and MNIST, several regularization strategies (nuc
 ```sh
 python -m venv .venv
 source .venv/bin/activate       # Windows: .venv\Scripts\activate
-pip install torch torchvision matplotlib numpy pyyaml art
+pip install -r requirements.txt
 ```
 
 Optionally install GPU drivers so `torch.cuda.is_available()` returns `True`.
