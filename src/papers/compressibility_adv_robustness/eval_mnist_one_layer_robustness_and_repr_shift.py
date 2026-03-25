@@ -43,10 +43,9 @@ def build_model() -> FCN:
 
 
 def get_hidden_representation(model: nn.Module, x: torch.Tensor) -> torch.Tensor:
-    # FCN structure: Flatten -> Linear -> ReLU -> Linear
     flat = model.net[0](x)
     h = model.net[1](flat)
-    h = model.net[2](h)  # post-ReLU hidden representation
+    h = model.net[2](h)
     return h
 
 
@@ -92,7 +91,7 @@ def robust_accuracy_and_repr_shift(
     dataloader,
     device: torch.device,
     attack: str = "autopgd",
-    eps_l2: float = 2, #before it was 0.125
+    eps_l2: float = 2,
     eps_step_l2: float | None = None,
     max_iter: int = 100,
     nb_random_init: int = 5,
@@ -207,7 +206,7 @@ def plot_accuracy_figure(agg: dict[str, dict], save_path: Path) -> None:
     robust_std  = np.array([agg[str(a)]["robust_test_accuracy_std"]  for a in alphas])
 
 
-    PALETTE = ["#4169E1", "#228B22"]  # royal blue, royal green
+    PALETTE = ["#4169E1", "#228B22"]
 
     fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
 
@@ -298,7 +297,7 @@ def main() -> None:
     parser.add_argument("--n-alphas", type=int, default=15)
     parser.add_argument("--alpha-min", type=float, default=1e-4)
     parser.add_argument("--alpha-max", type=float, default=3e-1)
-    parser.add_argument("--eps-l2", type=float, default=2) #before it was 0.125
+    parser.add_argument("--eps-l2", type=float, default=2)
     parser.add_argument("--eps-step-l2", type=float, default=None)
     parser.add_argument("--max-iter", type=int, default=100)
     parser.add_argument("--nb-random-init", type=int, default=5)

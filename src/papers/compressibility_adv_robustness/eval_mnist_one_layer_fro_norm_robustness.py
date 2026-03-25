@@ -328,7 +328,6 @@ def main() -> None:
     cfg = load_config(args.config)
     cfg = copy.deepcopy(cfg)
 
-    # build raw [0,1] MNIST test loader so eps is interpreted in image space
     cfg.dataset.augmentation.normalize = False
     bundle = build_datasets(cfg)
     _, _, test_loader = build_dataloaders(cfg, bundle.train, bundle.val, bundle.test, device)

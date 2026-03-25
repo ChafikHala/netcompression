@@ -97,7 +97,7 @@ def main() -> None:
             s = top_singular_values(weight, k=args.top_k)
             seed_curves.append(s.tolist())
 
-        seed_curves_np = np.array(seed_curves, dtype=float)  # [n_seeds, top_k]
+        seed_curves_np = np.array(seed_curves, dtype=float)
         mean_curve = seed_curves_np.mean(axis=0)
         std_curve = seed_curves_np.std(axis=0, ddof=0)
 

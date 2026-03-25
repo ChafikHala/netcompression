@@ -27,7 +27,6 @@ def apply_layerwise_target_sparsity(ctrl: PruningController, model: nn.Module, t
             cutoff = topk_vals[-1]
 
             local_mask = (p.data.abs() >= cutoff)
-            # resolve ties deterministically to match exact keep count
             if int(local_mask.sum().item()) > keep:
                 eq = (p.data.abs() == cutoff).view(-1)
                 lm = local_mask.view(-1)

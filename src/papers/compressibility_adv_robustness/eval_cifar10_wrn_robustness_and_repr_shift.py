@@ -450,13 +450,6 @@ def main() -> None:
     raw_results_path = save_dir / "raw_results.json"
     agg_results_path = save_dir / "aggregated_results.json"
 
-    # Load existing results if available
-    # if raw_results_path.exists():
-    #     print(f"Found existing raw results at {raw_results_path}, loading...")
-    #     with open(raw_results_path) as f:
-    #         raw_results: Dict[str, List[dict]] = json.load(f)
-    # else:
-    #     raw_results = {}
     raw_results = {}
 
     if args.compressibility == "neuron":
@@ -466,7 +459,6 @@ def main() -> None:
         sweep_values = [int(x) for x in args.ranks]
         x_key_name = "rank"
 
-    # Check if any runs are missing before loading datasets
     missing = [
         (v, seed)
         for v in sweep_values
@@ -557,7 +549,6 @@ def main() -> None:
                     f"robust/clean={robust_over_clean:.4f} | repr_shift_ratio={repr_ratio:.4f}"
                 )
 
-                # Save incrementally after each run so progress isn't lost on crash
                 save_json(raw_results_path, raw_results)
 
     agg = aggregate_over_seeds(raw_results, x_key_name=x_key_name)

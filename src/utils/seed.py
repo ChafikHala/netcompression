@@ -28,7 +28,6 @@ def seed_everything(seed: int, deterministic: bool = False) -> None:
         try:
             torch.use_deterministic_algorithms(True)
         except Exception:
-            # Older PyTorch versions might not support this fully.
             pass
     else:
         torch.backends.cudnn.benchmark = True

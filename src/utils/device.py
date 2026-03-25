@@ -3,16 +3,6 @@ from typing import Optional
 
 
 def get_device(device_str: Optional[str] = "auto") -> torch.device:
-    """
-    Resolve device automatically.
-
-    device_str:
-        "auto"  -> use cuda if available else cpu
-        "cuda"  -> force cuda (error if unavailable)
-        "cpu"   -> cpu
-        None    -> same as "auto"
-    """
-
     if device_str is None or device_str.lower() == "auto":
         return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

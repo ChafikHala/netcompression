@@ -12,17 +12,14 @@ class PruningController:
     masks: Dict[str, torch.Tensor]
     total_prunable: int
 
-    # common target
     initial_sparsity: float
     final_sparsity: float
 
-    # epoch schedule (global magnitude)
     start_epoch: int
     end_epoch: int
     frequency_epochs: int
     total_epoch_events: int
 
-    # step schedule (gradual cubic)
     begin_step: int
     update_frequency_steps: int
     num_updates: int
@@ -131,7 +128,6 @@ def build_pruning_controller(cfg, model: nn.Module) -> PruningController:
             f"pruning.final_sparsity ({final_sparsity}) must be >= pruning.initial_sparsity ({initial_sparsity})"
         )
 
-    # defaults for global magnitude epoch schedule
     start_epoch = int(getattr(pruning_cfg, "start_epoch", 0))
     default_end_epoch = int(cfg.training.epochs) - 1
     end_epoch_raw = getattr(pruning_cfg, "end_epoch", default_end_epoch)
@@ -143,7 +139,6 @@ def build_pruning_controller(cfg, model: nn.Module) -> PruningController:
         )
     total_epoch_events = len(range(start_epoch, end_epoch + 1, frequency_epochs))
 
-    # defaults for gradual cubic step schedule
     begin_step = int(getattr(pruning_cfg, "begin_step", 0))
     update_frequency_steps = max(int(getattr(pruning_cfg, "update_frequency_steps", getattr(pruning_cfg, "frequency", 100))), 1)
     num_updates = int(getattr(pruning_cfg, "num_updates", 100))

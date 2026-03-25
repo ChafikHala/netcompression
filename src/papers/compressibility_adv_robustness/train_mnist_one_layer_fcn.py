@@ -156,13 +156,11 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
 
     cfg = _prepare_cfg(cfg, alpha)
 
-    # Data
     bundle = build_datasets(cfg)
     train_loader, val_loader, test_loader = build_dataloaders(
         cfg, bundle.train, bundle.val, bundle.test, device
     )
 
-    # Model / optimizer / loss
     model = _build_model(num_classes=bundle.num_classes).to(device)
     optimizer = AdamW(
         model.parameters(),
@@ -172,8 +170,6 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
     criterion = nn.CrossEntropyLoss()
 
 
-    # Apply Frobenius normalization only when alpha > 0
-    # use_frobenius_normalization = float(alpha) > 0.0
     use_frobenius_normalization = True
 
     target_fro_norm = 11.5
@@ -183,7 +179,6 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
         frobenius_normalize_(weight, target_fro_norm)
 
 
-    # Output structure
     output_root = Path(getattr(cfg.experiment, "output_dir", "outputs"))
     exp_name = cfg.experiment.name
     run_name = f"{exp_name}_seed_{cfg.experiment.seed}"
@@ -242,10 +237,8 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             loss.backward()
             optimizer.step()
 
-            # Enforce fixed Frobenius norm after each optimizer step
             weight = get_single_hidden_layer_weight(model)
             
-            # if alpha
             frobenius_normalize_(weight, target_fro_norm)
 
             bs = x.size(0)
@@ -263,7 +256,6 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
         train_acc = running_correct / max(running_total, 1)
 
         val_res = evaluate(model, val_loader, criterion, device)
-        # test_res = evaluate(model, test_loader, criterion, device)
 
         matrix_stats = collect_matrix_stats(get_single_hidden_layer_weight(model))
 
@@ -276,8 +268,6 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             "train_accuracy": train_acc,
             "val_loss": float(val_res.loss),
             "val_accuracy": float(val_res.accuracy),
-            # "test_loss": float(test_res.loss),
-            # "test_accuracy": float(test_res.accuracy),
             "fro_norm": matrix_stats["fro_norm"],
             "nuclear_norm": matrix_stats["nuclear_norm"],
         }
@@ -292,12 +282,10 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
             f"train_acc={train_acc:.4f} | "
             f"val_loss={val_res.loss:.4f} | "
             f"val_acc={val_res.accuracy:.4f} | "
-            # f"test_acc={test_res.accuracy:.4f} | "
             f"fro={matrix_stats['fro_norm']:.4f} | "
             f"nuc={matrix_stats['nuclear_norm']:.4f}"
         )
 
-        # Best model selection and early stopping are based on validation loss
         if val_res.loss < early.best_val_loss:
             early.best_val_loss = float(val_res.loss)
             early.best_epoch = epoch
@@ -314,7 +302,6 @@ def train_one_alpha(cfg, alpha: float, seed: Optional[int] = None) -> dict:
         else:
             early.epochs_without_improvement += 1
 
-        # Always save last checkpoint
         last_payload = CheckpointPayload(
             epoch=epoch,
             best_metric=float(early.best_val_loss),

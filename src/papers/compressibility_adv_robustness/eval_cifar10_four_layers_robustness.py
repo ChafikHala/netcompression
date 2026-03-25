@@ -71,8 +71,7 @@ def get_hidden_representation(model: nn.Module, x: torch.Tensor) -> torch.Tensor
     """
     x = x.view(x.size(0), -1)
 
-    # forward through all but last classification layer
-    # DenseFCN / LowRankFCN are both Sequential in .net
+
     for layer in list(model.net.children())[:-1]:
         x = layer(x)
     return x
@@ -147,9 +146,6 @@ def robust_accuracy_and_repr_shift(
 
     attack = attack.lower()
 
-    # Default norm choice from the paper:
-    # neuron compressibility -> Linf
-    # spectral compressibility -> L2
     if compressibility == "neuron":
         if attack == "autopgd":
             attacker = build_autopgd_linf_for_cifar10(
@@ -283,14 +279,13 @@ def plot_accuracy_figure(agg: dict[str, dict], save_path: Path, sweep_type: str)
     robust_mean = np.array([agg[key(x)]["robust_test_accuracy_mean"] for x in xs])
     robust_std  = np.array([agg[key(x)]["robust_test_accuracy_std"]  for x in xs])
 
-    # Ratio: robust / clean
     ratio_mean = robust_mean / np.where(clean_mean == 0, np.nan, clean_mean)
     ratio_std  = ratio_mean * np.sqrt(
         (robust_std / np.where(robust_mean == 0, np.nan, robust_mean))**2 +
         (clean_std  / np.where(clean_mean  == 0, np.nan, clean_mean ))**2
     )
 
-    PALETTE = ["#4169E1", "#228B22", "#9B1C31"]   # royal blue, forest/royal green
+    PALETTE = ["#4169E1", "#228B22", "#9B1C31"]
 
     fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
 
@@ -389,15 +384,12 @@ def main() -> None:
     parser.add_argument("--compressibility", type=str, required=True, choices=["neuron", "spectral"])
     parser.add_argument("--seeds", type=int, nargs="+", default=[0])
 
-    # neuron / alpha sweep
     parser.add_argument("--n-alphas", type=int, default=15)
     parser.add_argument("--alpha-min", type=float, default=1e-4)
     parser.add_argument("--alpha-max", type=float, default=1e-1)
 
-    # spectral / rank sweep
     parser.add_argument("--ranks", type=int, nargs="+", default=[64, 128, 256, 512, 1024])
 
-    # attacks
     parser.add_argument("--attack", type=str, default="autopgd", choices=["autopgd", "fgsm"])
     parser.add_argument("--eps-l2", type=float, default=0.125)
     parser.add_argument("--eps-step-l2", type=float, default=None)
@@ -423,7 +415,6 @@ def main() -> None:
     raw_results_path = save_dir / "raw_results.json"
     agg_results_path = save_dir / "aggregated_results.json"
 
-    # Load existing results if available, skipping already-completed runs
     if raw_results_path.exists():
         print(f"Found existing raw results at {raw_results_path}, loading...")
         with open(raw_results_path) as f:
@@ -441,7 +432,6 @@ def main() -> None:
         sweep_values = [int(r) for r in args.ranks]
         sweep_type = "rank"
 
-    # Check if any runs are missing before loading datasets
     missing = [
         (sv, seed)
         for sv in sweep_values
@@ -530,7 +520,6 @@ def main() -> None:
                     f"repr_shift_ratio={repr_ratio:.4f}"
                 )
 
-                # Save incrementally after each run so progress isn't lost
                 save_json(raw_results_path, raw_results)
 
     agg = aggregate_over_seeds(raw_results, sweep_type=sweep_type)

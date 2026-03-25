@@ -201,7 +201,7 @@ def main() -> None:
             raw_results[alpha_key].extend(seed_rows)
             seed_acc_matrix.append(seed_accs)
 
-        seed_acc_matrix = np.array(seed_acc_matrix, dtype=float)  # [n_seeds, n_ratios]
+        seed_acc_matrix = np.array(seed_acc_matrix, dtype=float)
         mean_acc = seed_acc_matrix.mean(axis=0)
         std_acc = seed_acc_matrix.std(axis=0, ddof=0)
 

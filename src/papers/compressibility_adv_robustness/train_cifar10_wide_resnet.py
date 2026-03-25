@@ -75,9 +75,7 @@ def load_config_dict_like(cfg):
     return _SimpleConfig(cfg)
 
 
-# ============================================================
-# Low-rank layers
-# ============================================================
+
 
 class LowRankLinear(nn.Module):
     def __init__(self, in_features: int, out_features: int, rank: int, bias: bool = False) -> None:
@@ -153,18 +151,16 @@ class LowRankConv2d(nn.Module):
         """
         Return equivalent kernel of shape [out_channels, in_channels, k, k].
         """
-        wa = self.conv_a.weight.detach()  # [rank, in, k, k]
-        wb = self.conv_b.weight.detach()  # [out, rank, 1, 1]
-        wb2 = wb[:, :, 0, 0]              # [out, rank]
+        wa = self.conv_a.weight.detach()
+        wb = self.conv_b.weight.detach()
+        wb2 = wb[:, :, 0, 0]
         return torch.einsum("or,rihw->oihw", wb2, wa)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.conv_b(self.conv_a(x))
 
 
-# ============================================================
-# WRN-16-2
-# ============================================================
+
 
 class DenseWideBasicBlock(nn.Module):
     def __init__(self, in_planes: int, out_planes: int, stride: int, bias: bool = False) -> None:
@@ -310,9 +306,7 @@ class LowRankWideResNet(nn.Module):
         return self.fc(out)
 
 
-# ============================================================
-# Regularization / stats
-# ============================================================
+
 
 def _dense_hidden_modules(model: nn.Module) -> dict[str, nn.Module]:
     modules = {}
@@ -364,9 +358,6 @@ def collect_first_layer_stats(model: nn.Module, compressibility: str) -> dict[st
     }
 
 
-# ============================================================
-# Config override
-# ============================================================
 
 def _prepare_cfg(cfg, compressibility: str, beta: Optional[float], rank: Optional[int]):
     cfg = load_config_dict_like(cfg)
@@ -392,9 +383,7 @@ def _prepare_cfg(cfg, compressibility: str, beta: Optional[float], rank: Optiona
     return cfg
 
 
-# ============================================================
-# Builders / checkpoint
-# ============================================================
+
 
 def _build_model(*, compressibility: str, num_classes: int, rank: Optional[int]) -> nn.Module:
     if compressibility == "neuron":
@@ -439,9 +428,6 @@ def _save_best_checkpoint(
     save_checkpoint(path, payload)
 
 
-# ============================================================
-# Train
-# ============================================================
 
 def train_one_setting(
     cfg,
@@ -644,9 +630,7 @@ def train_one_setting(
     return summary
 
 
-# ============================================================
-# Main
-# ============================================================
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()

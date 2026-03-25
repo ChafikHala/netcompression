@@ -75,7 +75,6 @@ def load_config_dict_like(cfg):
     return _SimpleConfig(cfg)
 
 
-# Models
 
 class DenseFCN(nn.Module):
     def __init__(
@@ -158,7 +157,6 @@ class LowRankFCN(nn.Module):
         return self.net(x)
 
 
-# Regularization / normalization / stats
 
 def _dense_linear_modules(model: nn.Module) -> dict[str, nn.Linear]:
     return {name: module for name, module in model.named_modules() if isinstance(module, nn.Linear)}
@@ -170,7 +168,6 @@ def _dense_hidden_linear_modules(model: nn.Module) -> dict[str, nn.Linear]:
         if isinstance(module, nn.Linear)
     }
 
-    # remove last layer
     last_key = list(modules.keys())[-1]
     modules.pop(last_key)
 
@@ -183,7 +180,6 @@ def _lowrank_modules(model: nn.Module) -> dict[str, LowRankLinear]:
 def group_lasso_penalty(model: nn.Module) -> torch.Tensor:
     penalty = torch.tensor(0.0, device=next(model.parameters()).device)
     for _, layer in _dense_hidden_linear_modules(model).items():
-        # row-wise l2, then l1 over rows
         penalty = penalty + torch.norm(layer.weight, p=2, dim=1).sum()
     return penalty
 
@@ -218,7 +214,6 @@ def frobenius_normalize_lowrank_to_initial(model: nn.Module, target_fro_norms: d
             cur = torch.norm(w, p="fro")
             target = target_fro_norms[name]
 
-            # scale U and V by sqrt(scale) so UV scales by scale
             scale = target / max(float(cur.item()), eps)
             scale_sqrt = math.sqrt(scale)
             layer.U.mul_(scale_sqrt)
@@ -242,7 +237,6 @@ def collect_first_layer_stats(model: nn.Module, compressibility: str) -> dict[st
     }
 
 
-# Config override
 
 def _prepare_cfg(cfg, compressibility: str, alpha: Optional[float], rank: Optional[int]):
     cfg = load_config_dict_like(cfg)
@@ -274,7 +268,6 @@ def _prepare_cfg(cfg, compressibility: str, alpha: Optional[float], rank: Option
     return cfg
 
 
-# Builders / checkpoint
 
 def _build_model(
     *,
@@ -324,9 +317,7 @@ def _save_best_checkpoint(
     save_checkpoint(path, payload)
 
 
-# ============================================================
-# Train
-# ============================================================
+
 
 def train_one_setting(
     cfg,
@@ -541,9 +532,7 @@ def train_one_setting(
     return summary
 
 
-# ============================================================
-# Main
-# ============================================================
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()

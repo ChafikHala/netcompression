@@ -26,7 +26,6 @@ def should_prune_this_step(ctrl: PruningController, global_step: int) -> bool:
             return False
         return (global_step - ctrl.begin_step) % ctrl.update_frequency_steps == 0
 
-    # global_magnitude fallback (epoch method only)
     return False
 
 def target_sparsity_for_epoch(ctrl: PruningController, epoch: int) -> float:
@@ -37,7 +36,6 @@ def target_sparsity_for_epoch(ctrl: PruningController, epoch: int) -> float:
 
 
 def target_sparsity_for_step(ctrl: PruningController, global_step: int) -> float:
-    # s_t = sf + (si - sf) * (1 - (t - t0)/(n*dt))^3
     if global_step <= ctrl.begin_step:
         return ctrl.initial_sparsity
     if global_step >= ctrl.end_step:

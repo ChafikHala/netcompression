@@ -504,7 +504,6 @@ def main() -> None:
     cfg = load_config(args.config)
     cfg = copy.deepcopy(cfg)
 
-    # ART wrapper expects raw [0,1] inputs; model itself gets normalized inside this script/wrapper
     cfg.dataset.augmentation.normalize = False
 
     bundle = build_datasets(cfg)

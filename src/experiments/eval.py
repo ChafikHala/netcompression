@@ -1,8 +1,3 @@
-# ============================================================
-# eval.py
-# Auto-discover experiments and seeds from outputs directory
-# No hardcoded sparse_levels / width_levels / checkpoint paths
-# ============================================================
 from __future__ import annotations
 
 import argparse
@@ -157,7 +152,7 @@ def discover_experiments(
         if not seeds_dir.is_dir():
             continue
 
-        exp_name = seeds_dir.name[:-6]  # strip "_seeds"
+        exp_name = seeds_dir.name[:-6]
 
         if include and not any(token in exp_name for token in include):
             continue

@@ -46,7 +46,6 @@ def build_art_classifier(
 ) -> PyTorchClassifier:
     model.eval()
 
-    # ART requires an optimizer object for the PyTorchClassifier constructor.
     dummy_optimizer = torch.optim.SGD(model.parameters(), lr=1.0)
     loss = nn.CrossEntropyLoss()
     clip_values = None
@@ -70,7 +69,7 @@ def build_art_classifier(
 def build_autopgd_l2_for_mnist(
     model: nn.Module,
     device: torch.device,
-    eps_l2_original_space: float = 2, #before it was 0.125
+    eps_l2_original_space: float = 2,
     eps_step_l2_original_space: float | None = None,
     max_iter: int = 100,
     nb_random_init: int = 5,
@@ -101,7 +100,7 @@ def build_autopgd_l2_for_mnist(
 def build_fgsm_l2_for_mnist(
     model: nn.Module,
     device: torch.device,
-    eps_l2_original_space: float = 2, #before it was 0.125
+    eps_l2_original_space: float = 2,
     batch_size: int = 128,
 ) -> FastGradientMethod:
     classifier = build_art_classifier(model, device=device, nb_classes=2)
@@ -162,9 +161,6 @@ def build_autopgd_l2_for_cifar10(
     return attacker
 
 
-# --------------------------------------------------
-# APGD-Linf for CIFAR-10
-# --------------------------------------------------
 def build_autopgd_linf_for_cifar10(
     model: nn.Module,
     device: torch.device,
@@ -196,9 +192,6 @@ def build_autopgd_linf_for_cifar10(
     return attacker
 
 
-# --------------------------------------------------
-# FGSM-L2 for CIFAR-10
-# --------------------------------------------------
 def build_fgsm_l2_for_cifar10(
     model: nn.Module,
     device: torch.device,
@@ -217,9 +210,7 @@ def build_fgsm_l2_for_cifar10(
     return attacker
 
 
-# --------------------------------------------------
-# FGSM-Linf for CIFAR-10
-# --------------------------------------------------
+
 def build_fgsm_linf_for_cifar10(
     model: nn.Module,
     device: torch.device,

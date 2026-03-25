@@ -54,7 +54,7 @@ def _build_optimizer(cfg, model: torch.nn.Module) -> torch.optim.Optimizer:
     if opt_type == "adamw":
         betas = tuple(getattr(opt, "betas", (0.9, 0.999)))
         eps = float(getattr(opt, "eps", 1e-8))
-        weight_decay = float(getattr(opt, "weight_decay", 1e-2))  # important default
+        weight_decay = float(getattr(opt, "weight_decay", 1e-2))
 
         return AdamW(
             params,
@@ -95,19 +95,15 @@ def main() -> None:
     device = get_device(getattr(cfg.experiment, "device", "auto"))
     print("Using device:", device)
 
-    # Data
     bundle = build_datasets(cfg)
     train_loader, val_loader, _ = build_dataloaders(cfg, bundle.train, bundle.val, bundle.test, device)
 
 
-    # Model
     model = build_model(cfg, num_classes=bundle.num_classes)
 
-    # Optim / sched
     optimizer = _build_optimizer(cfg, model)
     scheduler = _build_scheduler(cfg, optimizer)
 
-    # Train
     result = train(
         cfg=cfg,
         model=model,

@@ -1,5 +1,3 @@
-# noise_pruning_cifar10_wrn16.py
-
 from __future__ import annotations
 
 import argparse
@@ -22,9 +20,7 @@ from torch.utils.data import DataLoader, Dataset
 from torchvision import datasets, transforms
 
 
-# ============================================================
-# Utilities
-# ============================================================
+
 
 def seed_everything(seed: int) -> None:
     random.seed(seed)
@@ -81,9 +77,6 @@ def setup_plot_style() -> None:
     })
 
 
-# ============================================================
-# WRN-16-2
-# ============================================================
 
 class WideBasicBlock(nn.Module):
     def __init__(self, in_planes: int, out_planes: int, stride: int, drop_rate: float = 0.0) -> None:
@@ -160,9 +153,6 @@ class WideResNet(nn.Module):
         return self.fc(out)
 
 
-# ============================================================
-# Noisy-label dataset wrapper
-# ============================================================
 
 class NoisyLabelDataset(Dataset):
     def __init__(self, base_dataset: Dataset, noisy_targets: np.ndarray) -> None:
@@ -205,9 +195,7 @@ def build_noisy_targets(original_targets: np.ndarray, alpha: float, seed: int) -
     return y
 
 
-# ============================================================
-# Data
-# ============================================================
+
 
 def build_datasets(
     data_root: str,
@@ -268,9 +256,7 @@ def build_eval_train_dataset(data_root: str) -> Dataset:
     return datasets.CIFAR10(root=data_root, train=True, download=True, transform=transform)
 
 
-# ============================================================
-# Metrics / training
-# ============================================================
+
 
 @torch.no_grad()
 def accuracy(model: nn.Module, loader: DataLoader, device: torch.device) -> float:
@@ -352,9 +338,6 @@ def train_one_model(
     return history
 
 
-# ============================================================
-# Pruning
-# ============================================================
 
 def get_prunable_parameters(model: nn.Module):
     params = []
@@ -391,9 +374,7 @@ def collect_abs_weights(model: nn.Module) -> np.ndarray:
     return np.concatenate(weights, axis=0)
 
 
-# ============================================================
-# Plotting
-# ============================================================
+
 
 def plot_retained_train_acc_curves(results: Dict[float, dict], save_path: Path) -> None:
     setup_plot_style()
@@ -472,9 +453,7 @@ def plot_weight_histogram(abs_weights: np.ndarray, title: str, save_path: Path) 
     plt.close(fig)
 
 
-# ============================================================
-# Experiment
-# ============================================================
+
 
 @dataclass
 class ExperimentConfig:
@@ -537,7 +516,6 @@ def run_experiment(cfg: ExperimentConfig) -> None:
             pin_memory=True,
         )
 
-        # Evaluation on D_alpha: same training images, same noisy labels used for training
         noisy_eval_train_dataset = NoisyLabelDataset(eval_train_clean, noisy_targets)
         noisy_eval_train_loader = DataLoader(
             noisy_eval_train_dataset,
@@ -560,7 +538,6 @@ def run_experiment(cfg: ExperimentConfig) -> None:
             nesterov=cfg.nesterov,
         )
 
-        # Main train_acc definition: accuracy on D_alpha
         train_acc = accuracy(model, noisy_eval_train_loader, device)
         test_acc = accuracy(model, test_loader, device)
         overfit_rate = (train_acc - test_acc) / max(train_acc, 1e-12)
@@ -589,7 +566,6 @@ def run_experiment(cfg: ExperimentConfig) -> None:
         for ratio in cfg.pruning_ratios:
             pruned_model = prune_model_global_magnitude(model, amount=ratio).to(device)
 
-            # train_acc_pruned = accuracy of pruned model_alpha on D_alpha
             pruned_train_acc = accuracy(pruned_model, noisy_eval_train_loader, device)
             pruning_train_accs.append(pruned_train_acc)
 
@@ -640,7 +616,6 @@ def run_experiment(cfg: ExperimentConfig) -> None:
         "results": all_results,
     })
 
-    # Plots
     plot_retained_train_acc_curves(all_results, plots_dir / "retained_train_acc_vs_ratio.png")
     plot_threshold_bars(all_results, plots_dir / "pruning_ratio_for_80pct_loss.png")
 
@@ -670,9 +645,6 @@ def run_experiment(cfg: ExperimentConfig) -> None:
     print(f"Results saved in: {output_dir}")
 
 
-# ============================================================
-# Main
-# ============================================================
 
 def parse_float_list(text: str) -> List[float]:
     return [float(x.strip()) for x in text.split(",") if x.strip()]

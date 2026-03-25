@@ -4,7 +4,7 @@ import argparse
 import copy
 import numpy as np
 
-from src.papers.compressibility_adv_robustness.train_cifar10_wide_resnet import (
+from src.papers.compressibility_adv_robustness.train_cifar10_four_layers_fcn import (
     train_one_setting,
 )
 from src.utils.config import load_config
@@ -15,18 +15,20 @@ def main() -> None:
 
     parser.add_argument("--config", type=str, required=True)
 
-    parser.add_argument("--compressibility", type=str, required=True, choices=["neuron", "spectral"],)
+    parser.add_argument(
+        "--compressibility",
+        type=str,
+        required=True,
+        choices=["neuron", "spectral"],
+    )
 
-    # neuron-compressibility sweep
-    parser.add_argument("--n-betas", type=int, default=10)
-    parser.add_argument("--beta-min", type=float, default=1e-5)
-    parser.add_argument("--beta-max", type=float, default=1e-1)
-    parser.add_argument("--beta-grid", type=str, default="geom", choices=["geom", "linear"])
+    parser.add_argument("--n-alphas", type=int, default=15)
+    parser.add_argument("--alpha-min", type=float, default=1e-4)
+    parser.add_argument("--alpha-max", type=float, default=1e-1)
+    parser.add_argument("--alpha-grid", type=str, default="geom", choices=["geom", "linear"])
 
-    # spectral-compressibility sweep
-    parser.add_argument("--ranks", type=int, nargs="+", default=[8, 16, 24, 32, 48, 64])
+    parser.add_argument("--ranks", type=int, nargs="+", default=[64, 128, 256, 512, 1024])
 
-    # common
     parser.add_argument("--seeds", type=int, nargs="+", default=[0])
 
     args = parser.parse_args()
@@ -37,24 +39,24 @@ def main() -> None:
     print("Seeds:", args.seeds)
 
     if args.compressibility == "neuron":
-        if args.beta_grid == "geom":
-            sweep_values = np.geomspace(args.beta_min, args.beta_max, args.n_betas)
+        if args.alpha_grid == "geom":
+            sweep_values = np.geomspace(args.alpha_min, args.alpha_max, args.n_alphas)
         else:
-            sweep_values = np.linspace(args.beta_min, args.beta_max, args.n_betas)
+            sweep_values = np.linspace(args.alpha_min, args.alpha_max, args.n_alphas)
 
-        print("Betas:", [float(b) for b in sweep_values])
+        print("Alphas:", [float(a) for a in sweep_values])
 
-        for beta in sweep_values:
+        for alpha in sweep_values:
             for seed in args.seeds:
                 print("\n" + "=" * 80)
-                print(f"Training neuron-compressibility | beta={float(beta):.8f}, seed={seed}")
+                print(f"Training neuron-compressibility | alpha={float(alpha):.8f}, seed={seed}")
                 print("=" * 80)
 
                 cfg = copy.deepcopy(base_cfg)
                 train_one_setting(
                     cfg,
                     compressibility="neuron",
-                    beta=float(beta),
+                    alpha=float(alpha),
                     rank=None,
                     seed=int(seed),
                 )
@@ -72,7 +74,7 @@ def main() -> None:
                 train_one_setting(
                     cfg,
                     compressibility="spectral",
-                    beta=None,
+                    alpha=None,
                     rank=int(rank),
                     seed=int(seed),
                 )

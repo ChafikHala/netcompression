@@ -10,9 +10,6 @@ import torch
 import torch.nn as nn
 
 
-# ============================================================
-# WRN-16-2 (same architecture as training script)
-# ============================================================
 
 class WideBasicBlock(nn.Module):
     def __init__(self, in_planes: int, out_planes: int, stride: int, drop_rate: float = 0.0) -> None:
@@ -72,9 +69,6 @@ class WideResNet(nn.Module):
         return self.fc(out)
 
 
-# ============================================================
-# Utilities
-# ============================================================
 
 def load_json(path: Path) -> dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -212,9 +206,6 @@ def plot_abs_weight_cdf(
     plt.close()
 
 
-# ============================================================
-# Main
-# ============================================================
 
 def main() -> None:
     parser = argparse.ArgumentParser()

@@ -144,7 +144,6 @@ def train(
                     f"loss={train_loss:.4f} acc={train_acc:.4f} lr={lr:.5g}"
                 )
 
-            # optional: if you really want batch logs, keep them tiny
             if save_batch_logs:
                 batch_record = {
                     "epoch": epoch,
@@ -172,12 +171,10 @@ def train(
 
         current_sparsity = current_global_sparsity(pruning) if pruning.enabled else None
 
-        # Validation
         val_res = evaluate(model, val_loader, criterion, device)
         metrics = {"val_loss": val_res.loss, "val_accuracy": val_res.accuracy}
         metric_value = float(metrics[monitor])
 
-        # Save best
         new_best = save_best_if_needed(
             path=best_path,
             epoch=epoch,
@@ -193,7 +190,6 @@ def train(
             best_metric = new_best
             best_epoch = epoch
 
-        # Save periodic checkpoint (optional)
         if save_every > 0 and ((epoch + 1) % save_every == 0):
             periodic_path = paths.checkpoints_dir / f"epoch_{epoch+1:04d}.pt"
             payload = CheckpointPayload(
@@ -206,7 +202,6 @@ def train(
             )
             save_checkpoint(periodic_path, payload)
 
-        # Save last checkpoint
         if save_last:
             payload = CheckpointPayload(
                 epoch=epoch,

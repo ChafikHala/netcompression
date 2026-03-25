@@ -14,7 +14,6 @@ class _ResBlock(nn.Module):
 
         self.shortcut: nn.Module = nn.Identity()
         if stride != 1 or in_channels != out_channels:
-            # Option A: zero-pad; Option B (used here): 1×1 projection
             self.shortcut = nn.Sequential(
                 nn.Conv2d(in_channels, out_channels, 1, stride=stride, bias=False),
                 nn.BatchNorm2d(out_channels),
@@ -44,19 +43,16 @@ class ResNet20(nn.Module):
     def __init__(self, num_classes: int = 10):
         super().__init__()
 
-        # Stem
         self.stem = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=3, stride=1, padding=1, bias=False),
             nn.BatchNorm2d(16),
             nn.ReLU(inplace=True),
         )
 
-        # Residual stages
         self.stage1 = self._make_stage(16, 16, n_blocks=3, stride=1)
         self.stage2 = self._make_stage(16, 32, n_blocks=3, stride=2)
         self.stage3 = self._make_stage(32, 64, n_blocks=3, stride=2)
 
-        # Classifier head
         self.avgpool = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Linear(64, num_classes)
 

@@ -11,9 +11,6 @@ import torch
 import torch.nn as nn
 
 
-# ============================================================
-# WRN-16-2 (same architecture as training script)
-# ============================================================
 
 class WideBasicBlock(nn.Module):
     def __init__(self, in_planes: int, out_planes: int, stride: int, drop_rate: float = 0.0) -> None:
@@ -73,18 +70,16 @@ class WideResNet(nn.Module):
         return self.fc(out)
 
 
-# ============================================================
-# Utilities
-# ============================================================
+
 
 PALETTE = [
-    "#1f77b4",  # blue
-    "#d62728",  # red
-    "#2ca02c",  # green
-    "#ff7f0e",  # orange
-    "#9467bd",  # purple
-    "#8c564b",  # brown
-    "#e377c2",  # pink
+    "#1f77b4",
+    "#d62728",
+    "#2ca02c",
+    "#ff7f0e",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
 ]
 
 def save_json(path: Path, payload: dict) -> None:
@@ -151,19 +146,14 @@ def find_threshold_ratio(pruning_ratios: List[float], retained: List[float], dro
     return None
 
 
-# ============================================================
-# Aggregation
-# ============================================================
 
 def load_seed_results(seed_folder: Path) -> dict:
     metrics_dir = seed_folder / "metrics"
     all_results_path = metrics_dir / "all_results.json"
 
-    # First choice: use the aggregated file directly
     if all_results_path.exists():
         return load_json(all_results_path)
 
-    # Fallback: rebuild from per-alpha json files
     per_alpha_files = sorted(metrics_dir.glob("result_alpha_*.json"))
     if per_alpha_files:
         results = {}
@@ -177,7 +167,6 @@ def load_seed_results(seed_folder: Path) -> dict:
             "results": results,
         }
 
-    # If neither exists, then raise an error
     raise FileNotFoundError(
         f"Could not find either:\n"
         f"  - {all_results_path}\n"
@@ -267,9 +256,6 @@ def aggregate_across_seed_folders(seed_folders: List[Path], drop_threshold: floa
     return raw, aggregated
 
 
-# ============================================================
-# Plotting
-# ============================================================
 
 def plot_retained_curves_mean_std(aggregated: dict, save_path: Path) -> None:
     fig, ax = plt.subplots(figsize=(8, 6), dpi=180)
@@ -451,9 +437,7 @@ def plot_weight_histogram_overlay_from_checkpoints(
     plt.savefig(save_path, dpi=180, bbox_inches="tight")
     plt.close()
 
-# ============================================================
-# Main
-# ============================================================
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -529,8 +513,6 @@ def main() -> None:
         save_path=save_dir / "threshold_pruning_ratio_mean_std.png",
     )
 
-    # Histograms from the first seed folder only
-    # Overlay histogram from the first seed folder only
     first_seed_results = load_seed_results(seed_folders[0])["results"]
 
     if "0.0" in first_seed_results and "1.0" in first_seed_results:
