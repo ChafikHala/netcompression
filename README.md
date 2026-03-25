@@ -102,14 +102,14 @@ python -m src.papers.compressibility_adv_robustness.eval_cifar10_wrn_robustness_
 
 Train MobileNet at different width multipliers, then compare against a full-width model pruned to a matching parameter budget:
 
-# Dense baselines at varying widths
+#### Dense baselines at varying widths
 ```sh
 python -m src.experiments.train --config configs/cifar10_mobilenet_width1.yaml
 python -m src.experiments.train --config configs/cifar10_mobilenet_width25.yaml
 python -m src.experiments.train --config configs/cifar10_mobilenet_width50.yaml
 python -m src.experiments.train --config configs/cifar10_mobilenet_width75.yaml
 ```
-# Pruned from full-width model
+#### Pruned from full-width model
 
 ```sh
 python -m src.experiments.train --config configs/cifar10_mobilenet_sparse_45.yaml
@@ -150,15 +150,7 @@ python aggregate_noise_pruning_results.py
 
 ---
 
-## Extending the codebase
 
-**New experiment:** copy a YAML config into `configs/`, adjust `model`, `optimizer`, `training`, and `pruning` fields, then run `python -m src.experiments.train`. Set `experiment.name` to tag the run and keep `experiment.output_dir` consistent so `eval.py` can find it.
-
-**Pruning:** the API in `src/pruning/` supports epoch-based global magnitude pruning and step-based gradual cubic layer-wise schedules (following [Zhu & Gupta, 2017](#references)). Tune `pruning.method`, `final_sparsity`, and `frequency` in your config.
-
-**HPC:** the shell scripts in the root (`run_cifar_10_wide_resnet_layer_rank.sh`, `run_comp_robust_mnist.sh`, etc.) wrap `sbatch` calls, check GPU availability via `nvidia-smi`, and launch the appropriate Python module. Edit the `python -m ...` invocation inside each script to point to a different config or seed range.
-
----
 
 ## References
 
