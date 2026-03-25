@@ -36,9 +36,9 @@ Optionally install GPU drivers so `torch.cuda.is_available()` returns `True`.
 
 ## Research sweeps
 
-### 1. Compressibility and adversarial robustness
+### 1. Compressibility and Adversarial robustness
 
-Sweep scripts live under `src/papers/compressibility_adv_robustness/`. These vary regularization strength and measure how adversarial accuracy, clean accuracy, and internal representation shift respond to increasing compressibility.
+Sweep scripts live under `src/papers/compressibility_adv_robustness/`. These vary regularization method and strength (neuron & spectral) and measure how adversarial accuracy, clean accuracy, and internal representation shift respond to increasing compressibility.
 
 Each model is trained on CIFAR-10 (mainly, and also Binary MNIST) under both neuron and spectral compressibility regimes across three seeds. Trained checkpoints are saved for downstream adversarial evaluation.
 
@@ -74,7 +74,7 @@ Switch `--compressibility` to `spectral` for the spectral norm variant, and spec
 
 #### Adversarial evaluation
 
-`attack_utils.py` (and the CIFAR-specific `attack_utils.cifar`) wrap ART's AutoPGD and FGSM attacks under both L2 and L∞ norms. Use the `PyTorchClassifier` wrappers whenever you need adversarial gradients — their default budgets are already calibrated to the normalized CIFAR-10/MNIST transforms in `src/data/datasets.py`.
+`attack_utils.py` wrap ART's AutoPGD and FGSM attacks under both L2 and L∞ norms. Use the `PyTorchClassifier` wrappers whenever you need adversarial gradients — their default budgets are already calibrated to the normalized CIFAR-10/MNIST transforms in `src/data/datasets.py`.
 
 Beyond standard adversarial accuracy, the paper scripts also log the relative representation shift `‖z_adv − z‖₂ / ‖z‖₂` between clean and adversarially perturbed inputs, and vulnerability to universal adversarial examples (UAE) as a function of regularization strength and Frobenius norm scaling.
 
@@ -97,6 +97,39 @@ python -m src.papers.compressibility_adv_robustness.eval_cifar10_wrn_robustness_
   --eps-linf 0.031 \
   --seeds 0 1 2
 ```
+
+#### Universal Adversarial Examples
+
+Beyond input-specific attacks, the codebase also evaluates vulnerability to universal adversarial perturbations — a single fixed noise vector u that fools the model across the entire test set. This is a stricter test of robustness: a model that is brittle to UAEs has learned representations that are globally unstable, not just locally sensitive to individual inputs.
+
+Two dedicated evaluation scripts handle this for the one-layer FCN on binary MNIST:
+
+Sweep over spectral regularization strength `α` — evaluates FGSM robust accuracy and PGD-based UAE accuracy across a log-spaced grid of `α` values, using models trained with nuclear norm regularization:
+
+```sh
+python -m src.papers.compressibility_adv_robustness.eval_mnist_one_layer_alpha_robust_and_uae \
+  --config configs/papers/compressibility_adv_robustness/mnist_one_layer_fcn.yaml \
+  --base-dir outputs \
+  --n-alphas 15 \
+  --alpha-min 1e-4 \
+  --alpha-max 3e-1 \
+  --seeds 0 1 2 \
+  --norm linf \
+  --num-epochs 10
+```
+Sweep over **Frobenius norm** — evaluates the same two metrics while varying the Frobenius norm of the weight matrix, isolating the effect of weight scale from spectral structure:
+
+```sh
+python -m src.papers.compressibility_adv_robustness.eval_mnist_one_layer_fro_norm_uae \
+  --config configs/papers/compressibility_adv_robustness/mnist_one_layer_fcn.yaml \
+  --base-dir outputs \
+  --n-fro-norms 10 \
+  --fro-min 20.0 \
+  --fro-max 200.0 \
+  --seeds 0 1 2 \
+  --norm linf
+```
+The UAE is computed via PGD ascent on a shared perturbation, optionally restricted to correctly classified clean examples (`--uae-only-correct-clean`) and with optional random initialization (`--uae-random-start`).
 
 ### 2. Overparameterization and optimization (large-sparse vs. small-dense)
 
