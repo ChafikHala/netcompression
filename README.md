@@ -72,7 +72,7 @@ python -m src.papers.compressibility_adv_robustness.run_cifar10_wide_resnet_neur
 
 Switch `--compressibility` to `spectral` for the spectral norm variant, and specify desired `ranks`.
 
-### Adversarial evaluation
+#### Adversarial evaluation
 
 `attack_utils.py` (and the CIFAR-specific `attack_utils.cifar`) wrap ART's AutoPGD and FGSM attacks under both L2 and L∞ norms. Use the `PyTorchClassifier` wrappers whenever you need adversarial gradients — their default budgets are already calibrated to the normalized CIFAR-10/MNIST transforms in `src/data/datasets.py`.
 
