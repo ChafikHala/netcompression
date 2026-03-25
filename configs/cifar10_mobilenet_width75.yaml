@@ -1,5 +1,5 @@
 experiment:
-  name: "resnet20_cifar10"
+  name: "mobilenet_cifar10_width75"
   output_dir: "outputs"
   seed: 42
   run_id: "auto"
@@ -13,24 +13,23 @@ dataset:
     random_crop: 4
     horizontal_flip: true
     normalize: true
-  label_noise_fraction: 0.6
-
 
 dataloader:
-  batch_size: 256
+  batch_size: 128
   num_workers: 4
   pin_memory: true
 
 model:
-  name: "resnet20"
-  num_classes: 10
+  name: "mobilenet_v2"
+  pretrained: false
+  width_mult: 0.75
 
 optimizer:
   type: "sgd"
-  lr: 0.1
+  lr: 0.05
   momentum: 0.9
-  weight_decay: 1e-4
-  nesterov: false
+  weight_decay: 5e-4
+  nesterov: true
 
 scheduler:
   type: "multistep"
@@ -38,7 +37,7 @@ scheduler:
   gamma: 0.1
 
 training:
-  epochs: 160
+  epochs: 200
   criterion: "cross_entropy"
   label_smoothing: 0.0
   mixed_precision: true
@@ -56,23 +55,4 @@ logging:
   save_batch_logs: false
 
 pruning:
-  enabled: true
-  method: "gradual_cubic_layerwise"  # gradual_cubic_layerwise | global_magnitude
-
-  # Common target sparsity
-  initial_sparsity: 0.0
-  final_sparsity: 0.45
-
-  # Step-based gradual cubic schedule (used by gradual_cubic_layerwise)
-  begin_step: 0
-  update_frequency_steps: 100
-  num_updates: 100
-
-  # Epoch-based schedule (used by global_magnitude)
-  start_epoch: 2
-  end_epoch: 200
-  frequency: 5
-
-  # Parameter filtering
-  exclude_bias: true
-  exclude_norm: true
+  enabled: false
